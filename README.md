@@ -50,4 +50,21 @@ Selanjutnya, dibuat file `README.md` yang berisi deskripsi relevan project, link
 
 ![Django workflow chart](https://github.com/user-attachments/assets/ea09fdf4-3b16-4254-89d2-ed7dcd5d05ad)
 
+### Fungsi Git
+
+Git merupakan Version Control System yang berguna untuk developer melakukan tracking dari perubahan-perubahan setiap code yang telah dilakukan. Selain itu, developer juga dapat bekerja secara kolektif untuk mengembangkan aplikasi mereka secara rapi dan terstruktur menggunakan git. Developer juga dapat kembali ke versi perubahan sebelum-sebelumnya jika ternyata terdapat bug atau kesalahan pada versi terbaru. 
+
+### Mengapa Django digunakan untuk permulaan Software Development?
+
+Beberapa alasan yang cukup relevan adalah
+
+- Framework Lengkap
+  Django memiliki banyak fitur bawaan yang cukup lengkap seperti autentikasi user, admin panel,   form handling, dan keamanan yang baik. Hal tersebut memudahkan developer agar tidak melakukan   konfigurasi semuanya dari awal.
+
+- Arsitektur MVT
+  Model-View-Template membantu pemula untuk memahami struktur aplikasi web dengan baik dan        memisahkan front-end dengan back-end secara terstruktur.
+
+- Scalability
+  Django dirancang agar dapat menangani project kecil hingga besar. Sehingga, framework ini       dapat memberi gambaran nyata mengenai real world project yang kompleks.
+
 

@@ -67,4 +67,10 @@ Beberapa alasan yang cukup relevan adalah
 - Scalability
   Django dirancang agar dapat menangani project kecil hingga besar. Sehingga, framework ini       dapat memberi gambaran nyata mengenai real world project yang kompleks.
 
+## Mengapa model Django disebut ORM
+
+Model pada Django disebut ORM (Object-Relational Mapping) karena model pada Django menghubungkan object dalam kode Python dengan database relational seperti PostgreSQL, MySQL, dan SQLite. Sehingga, kode lebih terstruktur dan lebih baik untuk dimaintain.
+
+
+
 

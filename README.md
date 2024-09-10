@@ -33,7 +33,7 @@ Untuk membuat aplikasi lebih mudah dimaintain, kita dapat memisahkan front-end d
 Pada `main` app, kita perlu menambahkan routing yang dapat memetakan URL ke fungsi yang ada pada `views.py` agar pengguna dapat mengakses page melalui URL yang sesuai.
 
 **7. Melakukan Deployment ke PWS**
-Jika project sudah cukup baik, maka dapat dilakukan deployment ke (Pacil Web Service)[pbp.cs.ui.ac.id] sebagai deployment agar dapat diakses melalui internet.
+Jika project sudah cukup baik, maka dapat dilakukan deployment ke (Pacil Web Service)[https://pbp.cs.ui.ac.id] sebagai deployment agar dapat diakses melalui internet.
 
 **8. Membuat README.md**
 Selanjutnya, dibuat file `README.md` yang berisi deskripsi relevan project, link menuju PWS project terkait, dan jawaban dari pertanyaan-pertanyaan pada Tugas 2 PBP.

@@ -3,7 +3,7 @@
 Anytime, anywhere. 
 
 ### Deployment
-View Grime's live website here: [Grime Deployment Paeg](http://daniel-ferdiansyah-grime.pbp.cs.ui.ac.id/)
+View Grime's live website here: [Grime Deployment Page](http://daniel-ferdiansyah-grime.pbp.cs.ui.ac.id/)
 
 ---
 

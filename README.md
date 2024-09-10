@@ -46,4 +46,7 @@ Jika project sudah cukup baik, maka dapat dilakukan deployment ke [Pacil Web Ser
 
 Selanjutnya, dibuat file `README.md` yang berisi deskripsi relevan project, link menuju PWS project terkait, dan jawaban dari pertanyaan-pertanyaan pada Tugas 2 PBP.
 
-**Request-Response Project Django**
+**Django workflow**
+https://github.com/danferdiansyah/grime/issues/1#issue-2515338197
+
+

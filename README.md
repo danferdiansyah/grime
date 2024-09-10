@@ -9,7 +9,7 @@ View Grime's live website here: [Grime Deployment Page](http://daniel-ferdiansya
 
 ## Tugas 2 - PBP 24/25
 
-### Langkah Implementasi
+## Langkah Implementasi
 
 **1. Membuat sebuah project Django baru**
 
@@ -46,15 +46,15 @@ Jika project sudah cukup baik, maka dapat dilakukan deployment ke [Pacil Web Ser
 
 Selanjutnya, dibuat file `README.md` yang berisi deskripsi relevan project, link menuju PWS project terkait, dan jawaban dari pertanyaan-pertanyaan pada Tugas 2 PBP.
 
-### Django workflow
+## Django workflow
 
 ![Django workflow chart](https://github.com/user-attachments/assets/ea09fdf4-3b16-4254-89d2-ed7dcd5d05ad)
 
-### Fungsi Git
+## Fungsi Git
 
 Git merupakan Version Control System yang berguna untuk developer melakukan tracking dari perubahan-perubahan setiap code yang telah dilakukan. Selain itu, developer juga dapat bekerja secara kolektif untuk mengembangkan aplikasi mereka secara rapi dan terstruktur menggunakan git. Developer juga dapat kembali ke versi perubahan sebelum-sebelumnya jika ternyata terdapat bug atau kesalahan pada versi terbaru. 
 
-### Mengapa Django digunakan untuk permulaan Software Development?
+## Mengapa Django digunakan untuk permulaan Software Development?
 
 Beberapa alasan yang cukup relevan adalah
 

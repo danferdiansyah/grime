@@ -1,3 +1,70 @@
-<h1>Grime</h1>
-<p>{{ tagline }}</p>
-<p>{{ name }} - {{ class }}</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grime</title>
+    <style>
+        /* General body style */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #333;
+            color: white;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Align content at the top */
+            padding-top: 50px; /* Add space at the top */
+        }
+
+        /* Container for the content */
+        .container {
+            text-align: center;
+            width: 100%;
+        }
+
+        /* Styling the fixed top bar */
+        .top-bar {
+            background-color: #FFEB3B;
+            color: #333;
+            font-weight: bold;
+            border-radius: 20px;
+            padding: 10px 20px;
+            position: fixed;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%); /* Center the top bar */
+            z-index: 1;
+        }
+
+        /* Main heading */
+        h1 {
+            font-size: 4rem;
+            margin: 30px 0 0 0;
+            font-weight: bold;
+        }
+
+        /* Tagline styling */
+        p.tagline {
+            font-size: 1.5rem;
+            margin: 0;
+            color: #FFEB3B;
+        }
+
+        /* Name and class */
+        p.name-class {
+            font-size: 1rem;
+            color: #FFEB3B;
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar">{{ name }} - {{ class }}</div>
+    
+    <div class="container">
+        <h1>Grime</h1>
+        <p class="tagline">{{ tagline }}</p>
+    </div>
+</body>
+</html>

@@ -1,3 +1,5 @@
+{% extends 'base.html' %}
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,18 +15,13 @@
             color: white;
             height: 100vh;
             display: flex;
-            justify-content: center;
-            align-items: flex-start; /* Align content at the top */
-            padding-top: 50px; /* Add space at the top */
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            padding-top: 80px;
         }
 
-        /* Container for the content */
-        .container {
-            text-align: center;
-            width: 100%;
-        }
-
-        /* Styling the fixed top bar */
+        /* Top bar styling */
         .top-bar {
             background-color: #FFEB3B;
             color: #333;
@@ -34,21 +31,27 @@
             position: fixed;
             top: 10px;
             left: 50%;
-            transform: translateX(-50%); /* Center the top bar */
+            transform: translateX(-50%);
             z-index: 1;
+        }
+
+        /* Container for the main content */
+        .container {
+            text-align: center;
+            width: 100%;
         }
 
         /* Main heading */
         h1 {
             font-size: 4rem;
-            margin: 30px 0 0 0;
+            margin: 0;
             font-weight: bold;
         }
 
         /* Tagline styling */
         p.tagline {
             font-size: 1.5rem;
-            margin: 0;
+            margin: 10px 0;
             color: #FFEB3B;
         }
 
@@ -57,14 +60,82 @@
             font-size: 1rem;
             color: #FFEB3B;
         }
+
+        /* Table styling */
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #FFEB3B;
+            color: #333;
+        }
+
+        tr:hover {
+            background-color: #575757;
+        }
+
+        /* Button styling */
+        button {
+            background-color: #FFEB3B;
+            color: #333;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background-color: #FFC107;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
     </style>
 </head>
 <body>
     <div class="top-bar">{{ name }} - {{ class }}</div>
-    
+
     <div class="container">
         <h1>Grime</h1>
         <p class="tagline">{{ tagline }}</p>
+
+        {% if not products %}
+            <p>There's no product yet.</p>
+        {% else %}
+            <table>
+                <tr>
+                    <th>Product Name</th>
+                    <th>Price</th>
+                    <th>Description</th>
+                    <th>Quantity</th>
+                </tr>
+                {% for product in products %}
+                <tr>
+                    <td>{{ product.name }}</td>
+                    <td>{{ product.price }}</td>
+                    <td>{{ product.description }}</td>
+                    <td>{{ product.quantity }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        {% endif %}
+
+        <a href="{% url 'main:create_product' %}">
+            <button>Add New Product</button>
+        </a>
     </div>
 </body>
 </html>
+{% endblock content %}

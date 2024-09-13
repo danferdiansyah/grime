@@ -111,7 +111,7 @@
         <h1>Grime</h1>
         <p class="tagline">{{ tagline }}</p>
 
-        {% if not product %}
+        {% if not products %}
             <p>There's no product yet.</p>
         {% else %}
             <table>
@@ -123,10 +123,10 @@
                 </tr>
                 {% for product in products %}
                 <tr>
-                    <td>{{ product.name }}</td>
-                    <td>{{ product.price }}</td>
-                    <td>{{ product.description }}</td>
-                    <td>{{ product.quantity }}</td>
+                    <td>{{product.name}}</td>
+                    <td>{{product.price}}</td>
+                    <td>{{product.description}}</td>
+                    <td>{{product.quantity}}</td>
                 </tr>
                 {% endfor %}
             </table>

@@ -16,13 +16,16 @@ def show_main(request):
     return render(request, "main.html", context)
 
 def create_product(request):
+    
     form = ProductForm(request.POST or None)
 
     if form.is_valid() and request.method == "POST":
         form.save()
         return redirect('main:show_main')
 
-    context = {'form': form}
+    context = {'form': form,
+               'name' : 'Daniel Ferdiansyah',
+               'class' : 'PBP F'}
     return render(request, "create_product.html", context)
     
 def show_xml(request):

@@ -1,18 +1,162 @@
-{% extends 'base.html' %} 
-{% block content %}
-<h1>Add New Product</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Product</title>
+    <style>
+        /* General body style */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #333;
+            color: white;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* Center vertically */
+            align-items: center; /* Center horizontally */
+            padding: 0;
+        }
 
-<form method="POST">
-  {% csrf_token %}
-  <table>
-    {{ form.as_table }}
-    <tr>
-      <td></td>
-      <td>
-        <input type="submit" value="Add Product" />
-      </td>
-    </tr>
-  </table>
-</form>
+        /* Top bar styling */
+        .top-bar {
+            background-color: #FFEB3B;
+            color: #333;
+            font-weight: bold;
+            border-radius: 20px;
+            padding: 10px 20px;
+            position: fixed;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1;
+        }
 
-{% endblock %}
+        /* Container for the form */
+        .container {
+            text-align: center;
+            width: 90%; /* Adjust width to fit content better */
+            max-width: 600px; /* Maximum width for larger screens */
+        }
+
+        /* Main heading */
+        h1 {
+            font-size: 2.5rem; /* Adjust font size for better fit */
+            margin-bottom: 20px; /* Space below heading */
+            font-weight: bold;
+            color: #FFEB3B;
+        }
+
+        /* Table styling */
+        table {
+            width: 100%;
+            margin: 0 auto; /* Center the table */
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: none; /* Removes the white lines */
+        }
+
+        /* Input styling */
+        input[type="text"], input[type="number"], textarea, input[type="submit"] {
+            padding: 10px;
+            border-radius: 10px;
+            border: none;
+            margin: 5px 0;
+            width: 100%;
+            box-sizing: border-box; /* Ensure padding is included in width */
+        }
+
+        /* Label styling */
+        label {
+            font-size: 1.2rem;
+            color: #FFEB3B;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        /* Button container styling */
+        .button-container {
+            margin-top: 20px; /* Space above the button */
+        }
+
+        /* Input submit button styling */
+        input[type="submit"] {
+            background-color: #FFEB3B;
+            color: #333;
+            cursor: pointer;
+            font-weight: bold;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #FFC107;
+        }
+
+        /* Button styling */
+        button {
+            background-color: #FFEB3B;
+            color: #333;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background-color: #FFC107;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+    </style>
+</head>
+<body>
+  
+    <div class="top-bar">{{ name }} - {{ class }}</div>
+
+    <div class="container">
+        <h1>Add New Product</h1>
+
+        <form method="POST">
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <td><label for="id_name">Product Name:</label></td>
+                    <td>{{ form.name }}</td>
+                </tr>
+                <tr>
+                    <td><label for="id_price">Price:</label></td>
+                    <td>{{ form.price }}</td>
+                </tr>
+                <tr>
+                    <td><label for="id_description">Description:</label></td>
+                    <td>{{ form.description }}</td>
+                </tr>
+                <tr>
+                    <td><label for="id_quantity">Quantity:</label></td>
+                    <td>{{ form.quantity }}</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                      <div class="button-container">
+                        <input type="submit" value="Add Product" />
+                    </div>                    
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</body>
+</html>

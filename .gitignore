@@ -1,3 +1,11 @@
+# Environment
 /env
+
+# Node JS Modules
 /node_modules
+
+# Database
 db.sqlite3
+
+# Package-lock
+package-lock.json

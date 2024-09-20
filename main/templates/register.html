@@ -1,0 +1,181 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+<title>Register</title>
+<style>
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #333;
+    color: white;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+
+  .top-bar {
+    background-color: #FFEB3B;
+    color: #333;
+    font-weight: bold;
+    border-radius: 20px;
+    padding: 10px 20px;
+    position: fixed;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+  }
+
+
+  .container {
+    text-align: center;
+    width: 100%;
+    max-width: 400px;
+    margin-top: 40px;
+    overflow-y: auto;
+    max-height: calc(100vh - 80px);
+    padding: 20px;
+    box-sizing: border-box;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    font-weight: bold;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .form-group {
+    margin-bottom: 15px;
+    width: 100%;
+  }
+
+  .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    text-align: left;
+  }
+
+  input[type="text"], input[type="password"], input[type="email"] {
+    width: 100%;
+    padding: 8px;
+    border: none;
+    border-radius: 4px;
+    background-color: #444;
+    color: white;
+    box-sizing: border-box;
+  }
+
+  .btn {
+    background-color: #FFEB3B;
+    color: #333;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.1s;
+  }
+
+  .btn:hover {
+    background-color: #FFC107;
+  }
+
+  .btn:active {
+    transform: scale(0.98);
+  }
+
+  .messages {
+    list-style-type: none;
+    padding: 0;
+    margin: 15px 0;
+  }
+
+  .messages li {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    background-color: #FF6B6B;
+    color: white;
+  }
+
+  .login-link {
+    margin-top: 20px;
+  }
+
+  a {
+    text-decoration: none;
+    color: #FFEB3B;
+    margin-top: 10px;
+    display: inline-block;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  /* Scrollbar styling */
+  .container::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .container::-webkit-scrollbar-track {
+    background: #444;
+  }
+
+  .container::-webkit-scrollbar-thumb {
+    background-color: #FFEB3B;
+    border-radius: 4px;
+  }
+
+  .container::-webkit-scrollbar-thumb:hover {
+    background-color: #FFC107;
+  }
+</style>
+{% endblock meta %}
+
+{% block content %}
+<div class="top-bar">{{ name }} - {{ class }}</div>
+
+<div class="container">
+  <h1>Register</h1>
+  
+  <form method="POST">
+    {% csrf_token %}
+    {% for field in form %}
+      <div class="form-group">
+        {{ field.label_tag }}
+        {{ field }}
+        {% if field.errors %}
+          <ul class="messages">
+            {% for error in field.errors %}
+              <li>{{ error }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      </div>
+    {% endfor %}
+    <button type="submit" class="btn">Register</button>
+  </form>
+
+  {% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+  
+  <p class="login-link">
+    Already have an account? <a href="{% url 'main:login' %}">Login here</a>
+  </p>
+</div>
+{% endblock content %}

@@ -1,0 +1,176 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+<title>Login</title>
+<style>
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #333;
+    color: white;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+
+  .top-bar {
+    background-color: #FFEB3B;
+    color: #333;
+    font-weight: bold;
+    border-radius: 20px;
+    padding: 10px 20px;
+    position: fixed;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 90%;
+  }
+
+  .container {
+    text-align: center;
+    width: 100%;
+    max-width: 400px;
+    margin-top: 60px;
+    overflow-y: auto;
+    max-height: calc(100vh - 100px);
+    padding: 20px;
+    box-sizing: border-box;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    font-weight: bold;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  .form-group {
+    margin-bottom: 15px;
+    width: 100%;
+  }
+
+  .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    text-align: left;
+  }
+
+  input[type="text"], input[type="password"] {
+    width: 100%;
+    padding: 8px;
+    border: none;
+    border-radius: 4px;
+    background-color: #444;
+    color: white;
+    box-sizing: border-box;
+  }
+
+  .btn {
+    background-color: #FFEB3B;
+    color: #333;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.1s;
+  }
+
+  .btn:hover {
+    background-color: #FFC107;
+  }
+
+  .btn:active {
+    transform: scale(0.98);
+  }
+
+  a {
+    text-decoration: none;
+    color: #FFEB3B;
+    margin-top: 10px;
+    display: inline-block;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  .messages {
+    list-style-type: none;
+    padding: 0;
+    margin: 15px 0;
+  }
+
+  .messages li {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    background-color: #FF6B6B;
+    color: white;
+  }
+
+  .register-link {
+    margin-top: 20px;
+  }
+
+  @media (max-width: 480px) {
+    .container {
+      padding: 10px;
+    }
+
+    h1 {
+      font-size: 2rem;
+    }
+
+    .btn {
+      width: 100%;
+    }
+  }
+</style>
+{% endblock meta %}
+
+{% block content %}
+<div class="top-bar">{{ name }} - {{ class }}</div>
+
+<div class="container">
+  <h1>Login</h1>
+  
+  <form method="POST" action="">
+    {% csrf_token %}
+    <div class="form-group">
+      {{ form.username.label_tag }}
+      {{ form.username }}
+    </div>
+    <div class="form-group">
+      {{ form.password.label_tag }}
+      {{ form.password }}
+    </div>
+    <button type="submit" class="btn login_btn">Login</button>
+  </form>
+
+  {% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+  
+  <p class="register-link">
+    Don't have an account yet? <a href="{% url 'main:register' %}">Register Now</a>
+  </p>
+</div>
+{% endblock content %}

@@ -13,10 +13,8 @@
             color: white;
             height: 100vh;
             display: flex;
-            flex-direction: column;
-            justify-content: center; /* Center vertically */
-            align-items: center; /* Center horizontally */
-            padding: 0;
+            justify-content: center;
+            align-items: center;
         }
 
         /* Top bar styling */
@@ -35,15 +33,20 @@
 
         /* Container for the form */
         .container {
-            text-align: center;
-            width: 90%; /* Adjust width to fit content better */
-            max-width: 600px; /* Maximum width for larger screens */
+            /* 
+            background-color: #444;
+            padding: 30px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 600px;
+            */
+            text-align: center; /* Center content inside the container */
         }
 
         /* Main heading */
         h1 {
-            font-size: 2.5rem; /* Adjust font size for better fit */
-            margin-bottom: 20px; /* Space below heading */
+            font-size: 2.5rem;
+            margin-bottom: 20px;
             font-weight: bold;
             color: #FFEB3B;
         }
@@ -51,70 +54,65 @@
         /* Table styling */
         table {
             width: 100%;
-            margin: 0 auto; /* Center the table */
+            margin: 0 auto;
             border-collapse: collapse;
         }
 
         th, td {
             padding: 10px;
             text-align: left;
-            border-bottom: none; /* Removes the white lines */
+            border-bottom: none;
         }
 
-        /* Input styling */
-        input[type="text"], input[type="number"], textarea, input[type="submit"] {
+        /* Input and Textarea styling */
+        input[type="text"], input[type="number"], textarea {
             padding: 10px;
             border-radius: 10px;
             border: none;
             margin: 5px 0;
             width: 100%;
-            box-sizing: border-box; /* Ensure padding is included in width */
+            box-sizing: border-box;
+            background-color: #555;
+            color: white;
         }
 
-        /* Label styling */
+        /* Label styling - now white */
         label {
             font-size: 1.2rem;
-            color: #FFEB3B;
+            color: white; /* Changed to white */
             display: block;
             margin-bottom: 5px;
         }
 
         /* Button container styling */
         .button-container {
-            margin-top: 20px; /* Space above the button */
+            margin-top: 20px;
+            text-align: center; /* Center the button */
         }
 
         /* Input submit button styling */
-        input[type="submit"] {
+        input[type="submit"], button {
             background-color: #FFEB3B;
             color: #333;
             cursor: pointer;
             font-weight: bold;
             border: none;
-            padding: 10px 20px;
+            padding: 12px 30px;
             border-radius: 20px;
             display: inline-block;
+            transition: background-color 0.3s, transform 0.2s ease-in-out;
         }
 
-        input[type="submit"]:hover {
+        input[type="submit"]:hover, button:hover {
             background-color: #FFC107;
         }
 
-        /* Button styling */
-        button {
-            background-color: #FFEB3B;
-            color: #333;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-weight: bold;
+        /* Animation on button click */
+        input[type="submit"]:active, button:active {
+            transform: scale(0.95); /* Shrink slightly when clicked */
         }
 
-        button:hover {
-            background-color: #FFC107;
-        }
-
+        /* Link styling */
         a {
             text-decoration: none;
             color: inherit;
@@ -122,10 +120,11 @@
     </style>
 </head>
 <body>
-  
+
     <div class="top-bar">{{ name }} - {{ class }}</div>
 
     <div class="container">
+        <!-- Center the heading -->
         <h1>Add New Product</h1>
 
         <form method="POST">
@@ -148,15 +147,15 @@
                     <td>{{ form.quantity }}</td>
                 </tr>
                 <tr>
-                    <td></td>
-                    <td>
+                    <td colspan="2"> <!-- Merge the table cells -->
                       <div class="button-container">
                         <input type="submit" value="Add Product" />
-                    </div>                    
+                      </div>
                     </td>
                 </tr>
             </table>
         </form>
     </div>
+
 </body>
 </html>

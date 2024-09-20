@@ -118,7 +118,7 @@
     padding: 10px;
     margin-bottom: 10px;
     border-radius: 4px;
-    background-color: #FF6B6B;
+    background-color: #387A41;
     color: white;
   }
 
@@ -160,6 +160,10 @@
     </div>
     <button type="submit" class="btn login_btn">Login</button>
   </form>
+  
+  <p class="register-link">
+    Don't have an account yet? <a href="{% url 'main:register' %}">Register Now</a>
+  </p>
 
   {% if messages %}
   <ul class="messages">
@@ -169,8 +173,5 @@
   </ul>
   {% endif %}
   
-  <p class="register-link">
-    Don't have an account yet? <a href="{% url 'main:register' %}">Register Now</a>
-  </p>
 </div>
 {% endblock content %}

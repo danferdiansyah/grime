@@ -13,7 +13,7 @@ from django.core import serializers
 
 @login_required(login_url='/login')
 def show_main(request):
-    products = Product.objects.all(user=request.user)
+    products = Product.objects.filter(user=request.user)
     context = {
         'tagline': 'Anytime, anywhere.',
         'name' : 'Daniel Ferdiansyah',

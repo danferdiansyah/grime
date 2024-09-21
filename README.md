@@ -78,7 +78,7 @@ Cara kerjanya:
 - ForeignKey digunakan untuk membuat relasi many-to-one antara `MoodEntry` dan `User`, di mana banyak entri bisa dimiliki oleh satu pengguna.
 - `on_delete=models.CASCADE` artinya jika pengguna dihapus, maka semua MoodEntry yang terkait juga akan dihapus.
 
-### Perbedaan Authentication dan Authorization
+### 3. Perbedaan Authentication dan Authorization
 
 1. **Authentication**
 
@@ -117,7 +117,7 @@ def my_view(request):
         # Pengguna tidak diizinkan
 ```
 
-### Bagaimana Django mengingat pengguna yang telah login serta kegunaan dan keamanan penggunaan cookies
+### 4. Bagaimana Django mengingat pengguna yang telah login serta kegunaan dan keamanan penggunaan cookies
 
 Django mengingat pengguna yang telah login dengan cara berikut
 
@@ -136,7 +136,7 @@ Django mengingat pengguna yang telah login dengan cara berikut
 **Apakah Semua Cookies Aman Digunakan?**
 Tidak semua cookies aman karena cookies dapat dieksploitasi jika tidak dikonfigurasi dengan benar, seperti dalam kasus pencurian session, di mana penyerang dapat mengambil cookie suatu session dan mengakses akun pengguna. Cookies yang tidak aman dapat menyebabkan kebocoran informasi pribadi jika tidak disimpan dalam security yang baik.
 
-## Step by step implementasi
+## 5. Step by step implementasi
 
 ### 1. Implementasi Regist, Login, dan Logout
 

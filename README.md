@@ -205,3 +205,15 @@ urlpatterns = [
 
 ## API Call menggunakan Postman
 
+**XML**
+![XML](https://github.com/user-attachments/assets/c133ce99-b3e4-4973-9dd2-001bebc7c4fb)
+
+**XML by ID**
+![XML by ID](https://github.com/user-attachments/assets/1457eca3-2e9b-4d23-803a-e59411711353)
+
+**JSON**
+![JSON](https://github.com/user-attachments/assets/9636d9a8-bae7-4bf3-a7d3-734e0a87945a)
+
+**JSON by ID**
+![JSON by ID](https://github.com/user-attachments/assets/b27896bc-6d5b-46f2-8ba2-3a1cc0470512)
+

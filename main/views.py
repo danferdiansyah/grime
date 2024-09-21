@@ -18,6 +18,7 @@ def show_main(request):
         'tagline': 'Anytime, anywhere.',
         'name' : 'Daniel Ferdiansyah',
         'class' : 'PBP F',
+        'login_user' : request.user.username,
         'products' : products,
         'last_login': request.COOKIES['last_login'],
     }

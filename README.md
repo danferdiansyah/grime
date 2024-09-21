@@ -180,9 +180,8 @@ urlpatterns = [
 - Gunakan `LogoutView` untuk menghandle proses logout.
 - Routing URL mengarah ke `LogoutView` dan sesuaikan template html
 
-from django.contrib.auth.views import LogoutView
-
 ```python
+from django.contrib.auth.views import LogoutView
 urlpatterns = [
     ...
     path('logout/', LogoutView.as_view(), name='logout'),

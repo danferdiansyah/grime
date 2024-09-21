@@ -12,7 +12,7 @@ View Grime's live website here: [Grime Deployment Page](http://daniel-ferdiansya
 
 ## Tugas 4 - PBP 24/25
 
-### 1. Perbedaan antara HttpResponseRedirect() dan redirect()
+## 1. Perbedaan antara HttpResponseRedirect() dan redirect()
 
 **HttpResponseRedirect()**
 
@@ -55,7 +55,7 @@ def my_view_with_object(request, obj):
 
 ```
 
-### 2. Cara Kerja Penghubungan Model `MoodEntry` dengan `User`
+## 2. Cara Kerja Penghubungan Model `MoodEntry` dengan `User`
 
 Model `MoodEntry` dapat dihubungkan dengan `User` menggunakan **ForeignKey**, sehingga `MoodEntry` akan dialokasikan berbeda untuk setiap user yang telah login.
 
@@ -78,7 +78,7 @@ Cara kerjanya:
 - ForeignKey digunakan untuk membuat relasi many-to-one antara `MoodEntry` dan `User`, di mana banyak entri bisa dimiliki oleh satu pengguna.
 - `on_delete=models.CASCADE` artinya jika pengguna dihapus, maka semua MoodEntry yang terkait juga akan dihapus.
 
-### 3. Perbedaan Authentication dan Authorization
+## 3. Perbedaan Authentication dan Authorization
 
 1. **Authentication**
 
@@ -117,7 +117,7 @@ def my_view(request):
         # Pengguna tidak diizinkan
 ```
 
-### 4. Bagaimana Django mengingat pengguna yang telah login serta kegunaan dan keamanan penggunaan cookies
+## 4. Bagaimana Django mengingat pengguna yang telah login serta kegunaan dan keamanan penggunaan cookies
 
 Django mengingat pengguna yang telah login dengan cara berikut
 

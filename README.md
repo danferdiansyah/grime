@@ -138,7 +138,7 @@ Tidak semua cookies aman karena cookies dapat dieksploitasi jika tidak dikonfigu
 
 ## Step by step implementasi
 
-1. **Implementasi Regist, Login, dan Logout**
+### 1. Implementasi Regist, Login, dan Logout
 
 **Registrasi**
 

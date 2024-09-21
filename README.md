@@ -7,70 +7,201 @@ View Grime's live website here: [Grime Deployment Page](http://daniel-ferdiansya
 
 ---
 
-## Tugas 2 - PBP 24/25
+## Tugas 3 - PBP 24/25
 
-## Langkah Implementasi
+### Mengapa kita memerlukan data delivery dalam pengimplementasian sebuah platform?
 
-**1. Membuat sebuah project Django baru**
+Data delivery diperlukan dalam pengimplementasian sebuah platform karena memastikan bahwa data dapat diakses dan diproses secara efisien dari sumber ke tujuan, baik itu antar server, perangkat, atau pengguna akhir. Ini penting untuk menjaga performa platform, memberikan respon yang cepat, serta memastikan integritas dan keamanan data. Selain itu, mekanisme data delivery yang andal memungkinkan platform untuk mendukung berbagai fungsionalitas seperti real-time processing, analisis data, sinkronisasi antar sistem, dan pengalaman pengguna yang optimal. Tanpa data delivery yang efektif, platform bisa mengalami bottleneck, latensi, dan inkonsistensi data.
 
-Untuk menginisiasi sebuah project baru pada Django, kita dapat menjalankan command berikut `django-admin startproject [nama_project]`. Framework akan menyiapkan berbagai struktur yang diperlukan setelahnya.
+### Mana yang lebih baik antara XML dan JSON? Mengapa JSON lebih populer dibandingkan XML?
 
-**2. Membuat 'main' app pada project**
+JSON umumnya dianggap lebih baik daripada XML untuk banyak kasus, terutama dalam pengembangan web dan aplikasi modern. Ada beberapa alasan mengapa JSON lebih populer dibandingkan XML:
 
-Setelah berhasil menginiasi project Django, kita dapat membuat `main` app dengan command `python manage.py startapp main`. Kita akan melakukan development back-end dan semua fitur utama pada 'main' app.
+1. **Struktur Sederhana dan Ringkas**
 
-**3. Melakukan routing**
+JSON menggunakan format yang lebih sederhana dengan struktur data berbasis objek, yang mudah dipahami dan diintegrasikan dengan bahasa pemrograman modern seperti JavaScript, Python, dan lainnya. XML, di sisi lain, lebih verbose dengan tag pembuka dan penutup, yang membuatnya lebih panjang dan sulit dibaca.
+  
+2. **Kinerja**
 
-Pada direktori project, kita dapat melakukan routing untuk mengarahkan request ke `main` app pada `urls.py`. 
+Karena lebih ringan dan tidak memiliki overhead seperti tag XML yang berlebihan, JSON lebih cepat diproses dan ditransfer, sehingga lebih efisien untuk pengiriman data dalam aplikasi berbasis web.
 
-**4. Membuat model Product**
+3. **Native Support dalam JavaScript**
 
-Di dalam direktori `main`, dapat dibuat model baru pada file `models.py`. Dalam tugas ini, model yang diperlukan adalah `Product` dengan atribut wajib sebagai berikut
-- `name`        --> CharField
-- `price`       --> IntegerField
-- `description` --> TextField
+JSON terintegrasi langsung dengan JavaScript, yang merupakan bahasa pemrograman paling umum di web development. Hal ini membuat parsing dan manipulasi data JSON sangat mudah tanpa perlu library tambahan, sedangkan XML memerlukan pemrosesan tambahan.
 
-**5. Mengembangkan views.py agar dapat diintegrasi pada main.html**
+4. **Human-Readable**
 
-Untuk membuat aplikasi lebih mudah dimaintain, kita dapat memisahkan front-end dengan back-end. Kita dapat membuat fungsi ada `views.py` agar dapat melakukan render template html. Pada tugas ini, template masih berisi nama project, nama, dan kelas mahasiswa.
+JSON lebih mudah dibaca oleh manusia karena strukturnya yang menyerupai objek dalam pemrograman, sementara XML terlihat lebih kompleks karena tag-tag yang digunakan.
 
-**6. Membuat routing pada urls.py**
+Overall, JSON lebih cocok untuk aplikasi modern yang mengutamakan kecepatan, simplicity, dan efisiensi.
 
-Pada `main` app, kita perlu menambahkan routing yang dapat memetakan URL ke fungsi yang ada pada `views.py` agar pengguna dapat mengakses page melalui URL yang sesuai.
+### Fungsi dari method `is_valid()` pada form Django
 
-**7. Melakukan Deployment ke PWS**
+Method `is_valid()` pada form Django berfungsi untuk memeriksa apakah data yang di-submit ke form memenuhi validasi yang telah ditentukan. Method ini melakukan beberapa hal penting:
 
-Jika project sudah cukup baik, maka dapat dilakukan deployment ke [Pacil Web Service](https://pbp.cs.ui.ac.id) sebagai deployment agar dapat diakses melalui internet.
+1. **Memeriksa Input Pengguna**: `is_valid()` akan mengecek apakah data yang di-inputkan pengguna sesuai dengan aturan validasi form, seperti apakah tipe data benar, apakah field yang diperlukan terisi, dan apakah aturan validasi lainnya terpenuhi.
+   
+2. **Membersihkan Data**: Jika data valid, method ini juga memanggil proses *cleaning*, di mana input yang valid akan diproses lebih lanjut dan disimpan dalam atribut `cleaned_data` sebagai data yang bersih dan siap digunakan.
 
-**8. Membuat README.md**
+3. **Error Handling**: Jika data tidak valid, `is_valid()` mengembalikan nilai `False` dan menyimpan pesan error dalam atribut `errors`, yang bisa ditampilkan kepada pengguna untuk memberi tahu mereka tentang kesalahan yang terjadi.
 
-Selanjutnya, dibuat file `README.md` yang berisi deskripsi relevan project, link menuju PWS project terkait, dan jawaban dari pertanyaan-pertanyaan pada Tugas 2 PBP.
+Kita membutuhkan method ini untuk memastikan bahwa data yang dikirim oleh pengguna tidak mengandung kesalahan atau input yang tidak sesuai sebelum diproses lebih lanjut, misalnya sebelum menyimpan data ke database. Validasi ini mencegah terjadinya error atau kerusakan data di sistem.
 
-## Django workflow
+### Mengapa kita membutuhkan csrf_token saat membuat form di Django? Apa yang dapat terjadi jika kita tidak menambahkan csrf_token pada form Django? Bagaimana hal tersebut dapat dimanfaatkan oleh penyerang?
 
-![Django workflow chart](https://github.com/user-attachments/assets/ea09fdf4-3b16-4254-89d2-ed7dcd5d05ad)
+Kita membutuhkan `csrf_token` saat membuat form di Django untuk melindungi aplikasi dari serangan *Cross-Site Request Forgery* (CSRF). CSRF adalah jenis serangan di mana penyerang mencoba memaksa pengguna yang sudah terautentikasi di suatu situs untuk melakukan aksi yang tidak diinginkan tanpa sepengetahuan mereka.
 
-## Fungsi Git
+**`csrf_token` penting karena:**
 
-Git merupakan Version Control System yang berguna untuk developer melakukan tracking dari perubahan-perubahan setiap code yang telah dilakukan. Selain itu, developer juga dapat bekerja secara kolektif untuk mengembangkan aplikasi mereka secara rapi dan terstruktur menggunakan git. Developer juga dapat kembali ke versi perubahan sebelum-sebelumnya jika ternyata terdapat bug atau kesalahan pada versi terbaru. 
+1. **Mencegah CSRF**: Django menggunakan token CSRF sebagai mekanisme untuk memverifikasi bahwa permintaan yang dikirim ke server berasal dari sumber yang sah. Token ini unik untuk setiap session pengguna dan disematkan ke setiap form atau permintaan POST.
+   
+2. **Validasi Permintaan**: Saat form dikirim, Django memverifikasi apakah token CSRF yang dikirim sesuai dengan token yang disimpan di sisi server untuk memastikan bahwa permintaan tersebut sah dan bukan berasal dari pihak ketiga yang berbahaya.
 
-## Mengapa Django digunakan untuk permulaan Software Development?
+**Apa yang terjadi jika kita tidak menambahkan `csrf_token`?**
+Jika `csrf_token` tidak ditambahkan pada form Django, aplikasi menjadi rentan terhadap serangan CSRF. Penyerang dapat memanfaatkan kondisi ini dengan mengirimkan permintaan yang terlihat sah ke server melalui pengguna yang sudah terautentikasi, misalnya, dengan menyisipkan form berbahaya di situs atau email yang mengarahkan pengguna untuk mengirimkan data tanpa sepengetahuan mereka.
 
-Beberapa alasan yang cukup relevan adalah
+**Bagaimana penyerang dapat memanfaatkannya?**
 
-- Framework Lengkap
-  Django memiliki banyak fitur bawaan yang cukup lengkap seperti autentikasi user, admin panel,   form handling, dan keamanan yang baik. Hal tersebut memudahkan developer agar tidak melakukan   konfigurasi semuanya dari awal.
+1. **Eksekusi Aksi yang Tidak Sah**: Penyerang dapat membuat pengguna yang sudah login untuk mengirimkan permintaan POST yang tidak diinginkan, seperti mengubah pengaturan akun, melakukan transaksi, atau menghapus data tanpa persetujuan pengguna.
+   
+2. **Mengelabui Pengguna**: Dengan CSRF, penyerang bisa membuat permintaan dari situs yang mereka kontrol ke aplikasi Django tanpa pengguna menyadarinya, memanfaatkan sesi pengguna yang valid untuk melakukan aksi berbahaya.
 
-- Arsitektur MVT
-  Model-View-Template membantu pemula untuk memahami struktur aplikasi web dengan baik dan        memisahkan front-end dengan back-end secara terstruktur.
+Dengan menggunakan `csrf_token`, Django memastikan bahwa setiap permintaan form POST berasal dari sumber yang sah dan mencegah eksploitasi semacam ini.
 
-- Scalability
-  Django dirancang agar dapat menangani project kecil hingga besar. Sehingga, framework ini       dapat memberi gambaran nyata mengenai real world project yang kompleks.
+## Implementasi step by step
 
-## Mengapa model Django disebut ORM
+**1. Membuat Input Form untuk Menambahkan Objek Model**
 
-Model pada Django disebut ORM (Object-Relational Mapping) karena model pada Django menghubungkan object dalam kode Python dengan database relational seperti PostgreSQL, MySQL, dan SQLite. Sehingga, kode lebih terstruktur dan lebih baik untuk dimaintain.
+Buat form Product menggunakan ModelForm
 
+```python
+from django.forms import ModelForm
+from main.models import Product
 
+class ProductForm(ModelForm):
+    class Meta:
+        model = Product
+        fields = ['name', 'price', 'description', 'quantity']
+```
 
+Buat View untuk Input Form: Buat view untuk menampilkan dan memproses form input.
+
+```python
+def create_product_form(request):
+    form = ProductEntryForm(request.POST or None)
+
+    if form.is_valid():
+        form.save()
+        return redirect('main:show_model')
+    
+    context = {'form': form }
+    return render(request, 'add/create_product.html', context)
+```
+
+Buat template `html` untuk merender form yang telah dibuat
+
+```python
+...
+<div class="container">
+        <!-- Center the heading -->
+        <h1>Add New Product</h1>
+
+        <form method="POST">
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <td><label for="id_name">Product Name:</label></td>
+                    <td>{{ form.name }}</td>
+                </tr>
+                <tr>
+                    <td><label for="id_price">Price:</label></td>
+                    <td>{{ form.price }}</td>
+                </tr>
+                <tr>
+                    <td><label for="id_description">Description:</label></td>
+                    <td>{{ form.description }}</td>
+                </tr>
+                <tr>
+                    <td><label for="id_quantity">Quantity:</label></td>
+                    <td>{{ form.quantity }}</td>
+                </tr>
+                <tr>
+                    <td colspan="2"> <!-- Merge the table cells -->
+                      <div class="button-container">
+                        <input type="submit" value="Add Product" />
+                      </div>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+...
+```
+
+Tambah URL untuk form tersebut di `urls.py`
+
+```python
+from django.urls import path
+from main.views import show_main, create_product, show_xml, show_json, show_xml_by_id, show_json_by_id
+
+app_name = 'main'
+
+urlpatterns = [
+    path('', show_main, name='show_main'),
+    path('create-product', create_product, name='create_product'),
+    ...
+]
+```
+
+### Menambahkan 4 Fungsi Views
+
+1. XML
+
+```python
+def show_all_xml(_):
+    data = Product.objects.all()
+    return HttpResponse(serializers.serialize("xml", data), content_type="application/xml")
+```
+
+2. XML by ID
+
+```python
+def show_id_xml(_, id: str):
+    data = Product.objects.filter(id=id)
+    return HttpResponse(serializers.serialize("xml", data), content_type="application/xml")
+```
+
+3. JSON
+
+```python
+def show_all_json(_):
+    data = Product.objects.all()
+    return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+```
+
+4. JSON by ID
+
+```python
+def show_id_json(_, id: str):
+    data = Product.objects.filter(id=id)
+    return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+```
+
+Lalu buat routing untuk masing-masing views ke dalam `urls.py`
+
+```python
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('', show_model, name='show_model'),
+    path('add/', create_product_form, name='create_product_form'),
+    path('xml/', show_all_xml, name='show_all_xml'),
+    path('xml/<str:id>/', show_id_xml, name='show_id_xml'),
+    path('json/', show_all_json, name='show_all_json'),
+    path('json/<str:id>/', show_id_json, name='show_id_json'),
+]
+```
+
+## API Call menggunakan Postman
 

@@ -199,3 +199,56 @@ Pada html, tambahkan
 ### 3. Menghubungkan model `Product` dengan `User`
 
 ### 4. Menampilkan detail informasi pengguna yang sedang logged in seperti `username` dan menerapkan cookies seperti `last login` 
+
+- **Username**
+Untuk menampilkan username pada `main.html`, kita dapat menambahkan key baru pada `context` yang ada pada `show_main` di `views.py` seperti berikut
+```python
+context = {
+        ...
+        'login_user' : request.user.username,
+        ...
+}
+```
+serta memperbarui `main.html` dengan menambahkan block code berikut
+```html
+<p> Hi <b>{{ login_user }}</b>, welcome to</p>
+```
+
+- **Login**
+Untuk menampilkan last login session user, pada `views.py`, import beberapa modul berikut
+```python
+import datetime
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+```
+Lalu pada `login_user`, tambahkan cookie bernama `last_login` dengan mereplace code block `if form.is_valid()` menjadi
+```python
+...
+if form.is_valid():
+    user = form.get_user()
+    login(request, user)
+    response = HttpResponseRedirect(reverse("main:show_main"))
+    response.set_cookie('last_login', str(datetime.datetime.now()))
+    return response
+...
+```
+
+Lalu tambah `context` pada `show_main` seperti berikut
+```python
+context = {
+    ...
+    'last_login': request.COOKIES['last_login'],
+}
+```
+Selanjutnya, ubah `logout_user` menjadi seperti berikut
+```python
+def logout_user(request):
+    logout(request)
+    response = HttpResponseRedirect(reverse('main:login'))
+    response.delete_cookie('last_login')
+    return response
+```
+Dan finally, pada `main.html`, tambahkan code block
+```html
+<h5>Sesi terakhir login: {{ last_login }}</h5>
+```

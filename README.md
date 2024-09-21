@@ -198,6 +198,34 @@ Pada html, tambahkan
 
 ### 3. Menghubungkan model `Product` dengan `User`
 
+Pada `models.py`, import
+```python
+from django.contrib.auth.models import User
+```
+Lalu, pada class `Product`, tambahkan atribut
+```python
+user = models.ForeignKey(User, on_delete=models.CASCADE)
+```
+Selanjutnya, ubah `create_product` menjadi seperti berikut
+```python
+def create_product(request):
+    
+    form = ProductForm(request.POST or None)
+
+    if form.is_valid() and request.method == "POST":
+        product = form.save(commit=False)
+        product.user = request.user
+        product.save()
+        return redirect('main:show_main')
+
+    context = {'form': form,
+               'name' : 'Daniel Ferdiansyah',
+               'class' : 'PBP F'}
+    return render(request, "create_product.html", context)
+```
+
+Dengan demikian, `Product` telah diintegrasi dengan `User`. Sehingga, tiap user punya alokasi object Product berbeda dengan user lainnya.
+
 ### 4. Menampilkan detail informasi pengguna yang sedang logged in seperti `username` dan menerapkan cookies seperti `last login` 
 
 - **Username**

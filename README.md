@@ -187,9 +187,15 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(), name='logout'),
 ]
 ```
+
 Pada html, tambahkan
 
 ```html
 <a href="{% url 'logout' %}">Logout</a>
 ```
 
+### 2. Membuat dua akun pengguna, masing-masing tiga dummy data
+
+### 3. Menghubungkan model `Product` dengan `User`
+
+### 4. Menampilkan detail informasi pengguna yang sedang logged in seperti `username` dan menerapkan cookies seperti `last login` 

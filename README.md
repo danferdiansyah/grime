@@ -196,6 +196,35 @@ Pada html, tambahkan
 
 ### 2. Membuat dua akun pengguna, masing-masing tiga dummy data
 
+Masuk ke Django Shell, lalu jalankan code berikut
+```python
+from django.contrib.auth.models import User
+from main.models import Product  
+import uuid
+
+# Buat dua akun dummy
+user1 = User.objects.create_user(username='dummy1', password='password123')
+user2 = User.objects.create_user(username='dummy2', password='password123')
+
+# Simpan kedua user
+user1.save()
+user2.save()
+
+```
+Selanjutnya, untuk menambahkan 3 dummy data untuk tiap akun, jalankan code berikut
+```python
+# Tambahkan 3 produk untuk user1
+Product.objects.create(user=user1, name='Product 1A', price=10000, description='Deskripsi produk 1A', quantity=5)
+Product.objects.create(user=user1, name='Product 1B', price=20000, description='Deskripsi produk 1B', quantity=3)
+Product.objects.create(user=user1, name='Product 1C', price=15000, description='Deskripsi produk 1C', quantity=10)
+
+# Tambahkan 3 produk untuk user2
+Product.objects.create(user=user2, name='Product 2A', price=5000, description='Deskripsi produk 2A', quantity=8)
+Product.objects.create(user=user2, name='Product 2B', price=25000, description='Deskripsi produk 2B', quantity=4)
+Product.objects.create(user=user2, name='Product 2C', price=30000, description='Deskripsi produk 2C', quantity=2)
+```
+Dengan demikian, dummy account dan dummy data berhasil dibuat pada local project dan bisa digunakan dengan semestinya.
+
 ### 3. Menghubungkan model `Product` dengan `User`
 
 Pada `models.py`, import

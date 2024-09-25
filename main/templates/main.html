@@ -126,6 +126,7 @@
                     <th>Price</th>
                     <th>Description</th>
                     <th>Quantity</th>
+                    <th> </th>
                 </tr>
                 {% for product in products %}
                 <tr>
@@ -133,6 +134,13 @@
                     <td>{{product.price}}</td>
                     <td>{{product.description}}</td>
                     <td>{{product.quantity}}</td>
+                    <td>
+                        <a href="{% url 'main:edit_product' product.pk %}">
+                            <button>
+                                Edit
+                            </button>
+                        </a>
+                    </td>
                 </tr>
                 {% endfor %}
             </table>

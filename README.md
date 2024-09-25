@@ -6,7 +6,7 @@ Anytime, anywhere.
 View Grime's live website here: [Grime Deployment Page](http://daniel-ferdiansyah-grime.pbp.cs.ui.ac.id/)
 
 ### Tugas
-[Tugas 2](https://github.com/danferdiansyah/grime/wiki/Tugas-2) - [Tugas 3](https://github.com/danferdiansyah/grime/wiki/Tugas-3)
+[Tugas 2](https://github.com/danferdiansyah/grime/wiki/Tugas-2) - [Tugas 3](https://github.com/danferdiansyah/grime/wiki/Tugas-3) - [Tugas 4](https://github.com/danferdiansyah/grime/wiki/Tugas-4)
 
 ---
 
@@ -14,7 +14,7 @@ View Grime's live website here: [Grime Deployment Page](http://daniel-ferdiansya
 
 ## Perbedaan antara HttpResponseRedirect() dan redirect()
 
-**HttpResponseRedirect()**
+**`HttpResponseRedirect()`**
 
 menghasilkan respon HTTP untuk melakukan redirect ke URL tertentu. Ini mengirimkan status kode HTTP 302 ke browser, yang memberitahu browser untuk mengunjungi URL yang berbeda.
 
@@ -31,7 +31,7 @@ def my_view(request):
     return HttpResponseRedirect('/url/')
 ```
 
-**redirect()**
+**`redirect()`**
 
 Lebih mudah digunakan karena bisa menerima berbagai jenis argumen, seperti URL, nama view, atau objek model, dan secara otomatis mengonversinya ke URL yang benar.
 

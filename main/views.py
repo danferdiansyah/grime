@@ -18,6 +18,7 @@ def show_main(request):
         'tagline': 'Anytime, anywhere.',
         'name' : 'Daniel Ferdiansyah',
         'class' : 'PBP F',
+        'npm' : '2306275052',
         'login_user' : request.user.username,
         'products' : products,
         'last_login': request.COOKIES['last_login'],
@@ -95,7 +96,6 @@ def logout_user(request):
 
 def edit_product(request, id):
     product = Product.objects.get(pk = id)
-
     form = ProductForm(request.POST or None, instance=product)
 
     if form.is_valid() and request.method == "POST":
@@ -104,3 +104,9 @@ def edit_product(request, id):
 
     context = {'form': form}
     return render(request, "edit_product.html", context)
+
+def delete_product(request, id):
+    product = Product.objects.get(pk = id)
+    product.delete()
+
+    return HttpResponseRedirect(reverse('main:show_main'))

@@ -6,8 +6,8 @@
 }
 .form-style form input:focus, form textarea:focus, form select:focus {
     outline: none;
-    border-color: #674ea7;
-    box-shadow: 0 0 0 3px #674ea7;
+    border-color: #ffffff;
+    box-shadow: 0 0 0 3px #cccccc;
 }
 @keyframes shine {
     0% { background-position: -200% 0; }
@@ -17,4 +17,25 @@
     background: linear-gradient(120deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.3));
     background-size: 200% 100%;
     animation: shine 3s infinite;
+}
+
+/* Add this to your global.css */
+@keyframes line-walk {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.animated-line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px; /* Adjust this height to match your design */
+  background-color: white;
+  transform: translateX(-100%);
+  animation: line-walk 2s forwards; /* Adjust the duration as needed */
 }

@@ -5,43 +5,36 @@
 {% endblock meta %}
 
 {% block content %}
-<div class="min-h-screen flex items-center justify-center bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
-  <div class="max-w-md w-full space-y-8 form-style">
+<div class="min-h-screen flex items-center justify-center w-screen bg-[#0c0c0c] py-12 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-md w-full space-y-8">
     <div>
-      <h2 class="mt-6 text-center text-3xl font-extrabold text-black">
-        Create your account
+      <!-- Updated text styling -->
+      <h2 class="mt-6 text-center text-white text-3xl font-poppins">
+        <span class="font-normal">create your</span> <span class="font-bold">Grime</span> account.
       </h2>
     </div>
     <form class="mt-8 space-y-6" method="POST">
       {% csrf_token %}
       <input type="hidden" name="remember" value="true">
-      <div class="rounded-md shadow-sm -space-y-px">
+      <div class="space-y-4">
         {% for field in form %}
-          <div class="{% if not forloop.first %}mt-4{% endif %}">
-            <label for="{{ field.id_for_label }}" class="mb-2 font-semibold text-black">
-              {{ field.label }}
-            </label>
-            <div class="relative">
-              {{ field }}
-              <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                {% if field.errors %}
-                  <svg class="h-5 w-5 text-red-500" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
-                  </svg>
-                {% endif %}
-              </div>
-            </div>
-            {% if field.errors %}
-              {% for error in field.errors %}
-                <p class="mt-1 text-sm text-red-600">{{ error }}</p>
-              {% endfor %}
-            {% endif %}
+        <div class="flex justify-center">
+          <label for="{{ field.id_for_label }}" class="sr-only">{{ field.label }}</label>
+          <div class="flex justify-center"> <!-- Added relative container -->
+            <input id="{{ field.id_for_label }}" name="{{ field.name }}" type="{{ field.field.widget.input_type }}"
+              required
+              class="block w-auto px-3 py-2 text-center border-none placeholder-gray-500 text-white bg-transparent rounded-[15px] outline outline-[2px] outline-gray-250 focus:outline-white focus:outline-[2px] focus:outline-offset-0 focus:ring-0 focus:bg-opacity-100 focus:placeholder-opacity-100 text-opacity-20 transition duration-200 ease-in-out shadow-lg focus:text-opacity-100 focus:shadow-[0px_0px_10px_5px_rgba(255,255,255,0.4)]"
+              placeholder="{{ field.label }}" oninput="toggleInputColor(this)">
           </div>
+        </div>
         {% endfor %}
       </div>
+      
 
-      <div>
-        <button type="submit" class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+      <!-- Submit Button -->
+      <div class="flex justify-center">
+        <button type="submit"
+        class="w-auto flex justify-center py-2 px-4 text-sm font-medium rounded-[15px] text-black bg-white hover:bg-gray-200 focus:outline-none focus:ring-0 transition duration-200 ease-in-out hover:shadow-[0px_0px_15px_5px_rgba(255,255,255,0.4)]">
           Register
         </button>
       </div>
@@ -58,7 +51,7 @@
     {% endif %}
 
     <div class="text-center mt-4">
-      <p class="text-sm text-black">
+      <p class="text-sm text-white">
         Already have an account?
         <a href="{% url 'main:login' %}" class="font-medium text-indigo-200 hover:text-indigo-300">
           Login here
@@ -67,4 +60,14 @@
     </div>
   </div>
 </div>
+
+<script>
+  function toggleInputColor(input) {
+      if (input.value) {
+          input.classList.add('text-opacity-100'); // Text is fully visible
+      } else {
+          input.classList.remove('text-opacity-100'); // Text opacity back to normal
+      }
+  }
+</script>
 {% endblock content %}

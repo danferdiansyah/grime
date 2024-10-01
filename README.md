@@ -10,302 +10,154 @@ View Grime's live website here: [Grime Deployment Page](http://daniel-ferdiansya
 
 ---
 
-## Tugas 4 - PBP 24/25
+## Tugas 5 - PBP 2024/2025
+## Urutan Prioritas CSS Selector
+Jika beberapa CSS selector diterapkan pada elemen HTML yang sama, CSS menggunakan aturan spesifisitas (specificity) untuk menentukan selector mana yang akan diprioritaskan. Berikut urutan prioritasnya:
 
-## Perbedaan antara HttpResponseRedirect() dan redirect()
+1. **Inline Styles** (contoh `style="color: red;"`) memiliki prioritas paling tinggi.
+2. **ID Selector** (contoh `#header`) memiliki prioritas lebih tinggi dibandingkan class atau elemen.
+3. **Class Selector** (contoh `.menu`) lebih kuat dibandingkan tag HTML.
+4. **Tag Selector** (contoh `h1`, `p`) memiliki prioritas paling rendah.
+5. **Important Rule** (`!important`) dapat mengesampingkan semua aturan di atas dan memberikan prioritas tertinggi untuk sebuah properti.
 
-**`HttpResponseRedirect()`**
-
-menghasilkan respon HTTP untuk melakukan redirect ke URL tertentu. Ini mengirimkan status kode HTTP 302 ke browser, yang memberitahu browser untuk mengunjungi URL yang berbeda.
-
-**Parameter**: Memerlukan URL tujuan sebagai argumen (string).
-
-**Penggunaan**: Biasanya digunakan untuk redirect sederhana, di mana URL tujuan sudah ditentukan.
-
-contohnya,
-
-```python
-from django.http import HttpResponseRedirect
-
-def my_view(request):
-    return HttpResponseRedirect('/url/')
-```
-
-**`redirect()`**
-
-Lebih mudah digunakan karena bisa menerima berbagai jenis argumen, seperti URL, nama view, atau objek model, dan secara otomatis mengonversinya ke URL yang benar.
-
-**Parameter**: Sebuah string URL (seperti HttpResponseRedirect()). Nama view (sebagai argumen pertama), yang kemudian akan di-resolve menjadi URL. Sebuah instance object model yang memiliki method get_absolute_url().
-
-**Penggunaan**: Lebih umum digunakan karena fleksibilitasnya dan kemampuannya untuk menangani berbagai jenis argumen.
-
-contohnya,
-
-```python
-from django.shortcuts import redirect
-
-def my_view(request):
-    return redirect('/url/')  # Redirect ke URL spesifik
-    
-def my_view_with_name(request):
-    return redirect('view_name')  # Redirect ke view berdasarkan nama URL
-
-def my_view_with_object(request, obj):
-    return redirect(obj)  # Redirect ke URL berdasarkan method get_absolute_url() dari objek
-
-```
-
-## Cara Kerja Penghubungan Model `MoodEntry` dengan `User`
-
-Model `MoodEntry` dapat dihubungkan dengan `User` menggunakan **ForeignKey**, sehingga `MoodEntry` akan dialokasikan berbeda untuk setiap user yang telah login.
-
-```python
-from django.db import models
-import uuid
-from django.contrib.auth.models import User
-
-class MoodEntry(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    mood = models.CharField(max_length=255)
-    time = models.DateField(auto_now_add=True)
-    feelings = models.TextField()
-    mood_intensity = models.IntegerField()
-```
-Cara kerjanya:
-
-- Setiap kali pengguna membuat mood entry, entry tersebut dikaitkan dengan user yang login.
-- ForeignKey digunakan untuk membuat relasi many-to-one antara `MoodEntry` dan `User`, di mana banyak entri bisa dimiliki oleh satu pengguna.
-- `on_delete=models.CASCADE` artinya jika pengguna dihapus, maka semua MoodEntry yang terkait juga akan dihapus.
-
-## Perbedaan Authentication dan Authorization
-
-1. **Authentication**
-
-Proses untuk memverifikasi identitas pengguna dengan memastikan bahwa pengguna yang mencoba mengakses suatu aplikasi adalah valid dan sah.
-
-**Proses**: Dalam Django, autentikasi biasanya dilakukan melalui login, di mana pengguna memasukkan credential mereka (seperti username dan password), yang kemudian diverifikasi oleh sistem.
-
-Contohnya, Django menggunakan middleware authentication untuk memeriksa apakah pengguna telah masuk atau belum. Jika pengguna berhasil diverifikasi, informasi pengguna disimpan dalam object `request.user`.
-Fungsi seperti `authenticate()` dan `login()` digunakan untuk autentikasi. 
-
-```python
-from django.contrib.auth import authenticate, login
-
-def my_view(request):
-    user = authenticate(username='john', password='secret')
-    if user is not None:
-        login(request, user)
-        # Pengguna berhasil diautentikasi
-    else:
-        # Gagal autentikasi
-```
-
-2. **Authorization**
-
-Proses untuk menentukan hak akses pengguna yang sudah terautentikasi dengan menentukan apa yang boleh dan tidak boleh dilakukan oleh pengguna, misalnya apakah pengguna memiliki izin untuk mengakses halaman tertentu atau melakukan tindakan tertentu (seperti menambah, mengubah, atau menghapus data).
-
-**Proses**: Setelah pengguna berhasil diautentikasi, Django akan memeriksa izin (permissions) mereka untuk memastikan apakah mereka memiliki hak untuk melakukan aksi tertentu atau mengakses bagian tertentu dari aplikasi.
-
-Contohnya, Django menggunakan permissions (izin) dan groups untuk mengelola authorization. Fungsi seperti `has_perm()` dan `permission_required()` decorator digunakan untuk memeriksa otorisasi.
-
-```python
-def my_view(request):
-    if request.user.has_perm('app_name.permission_code'):
-        # Pengguna memiliki izin
-    else:
-        # Pengguna tidak diizinkan
-```
-
-## Bagaimana Django mengingat pengguna yang telah login serta kegunaan dan keamanan penggunaan cookies
-
-Django mengingat pengguna yang telah login dengan cara berikut
-
-**Session**: Ketika pengguna berhasil melakukan login, Django membuat sebuah session untuk pengguna tersebut. Informasi session ini disimpan di server dan diidentifikasi dengan sebuah ID sesi yang unik.
-
-**Cookies**: Django mengirimkan ID session tersebut kepada browser pengguna dalam bentuk cookie. Cookie ini akan disimpan di sisi klien (browser) dan dikirim kembali ke server dalam setiap request berikutnya.
-
-**Verifikasi Session**: Pada setiap request, Django memeriksa cookie yang diterima untuk menemukan ID session. Jika ID session valid dan masih aktif, Django akan mengidentifikasi pengguna berdasarkan informasi sesi yang disimpan di server.
-
-**Kegunaan Lain dari Cookies**
-
-- Cookies dapat digunakan untuk menyimpan preferensi pengguna, seperti bahasa yang dipilih atau tema tampilan, sehingga pengguna tidak perlu mengaturnya kembali setiap kali mereka mengunjungi situs.
-- Cookies digunakan untuk melacak aktivitas pengguna di situs web, seperti halaman yang dikunjungi atau barang yang ditambahkan ke keranjang belanja, yang dapat membantu dalam analisis data dan meningkatkan user experience.
-- Selain digunakan untuk sesi login, cookies dapat menyimpan token otentikasi untuk API dan aplikasi web, memudahkan pengguna untuk tetap terautentikasi saat browsing.
-
-**Apakah Semua Cookies Aman Digunakan?**
-Tidak semua cookies aman karena cookies dapat dieksploitasi jika tidak dikonfigurasi dengan benar, seperti dalam kasus pencurian session, di mana penyerang dapat mengambil cookie suatu session dan mengakses akun pengguna. Cookies yang tidak aman dapat menyebabkan kebocoran informasi pribadi jika tidak disimpan dalam security yang baik.
-
-## Step by step implementasi
-
-### 1. Implementasi Regist, Login, dan Logout
-
-**Registrasi**
-
-- Buat form untuk register dengan `UserCreationForm`.
-- Buat view untuk menghandle user yang registrasi ke dalam database.
-- Redirect user ke halaman login setelah registrasi berhasil.
-
-```python
-from django.contrib.auth.forms import UserCreationForm
-from django.shortcuts import render, redirect
-
-def register(request):
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('login')
-    else:
-        form = UserCreationForm()
-    return render(request, 'register.html', {'form': form})
-```
-
-**Login**
-
-- Gunakan `LoginView` untuk menghandle proses login.
-- Routing URL yang mengarah ke `LoginView`
-
-```python
-from django.contrib.auth.views import LoginView
-
-urlpatterns = [
-    ...
-    path('login/', LoginView.as_view(), name='login'),
-]
-```
-
-**Logout**
-
-- Gunakan `LogoutView` untuk menghandle proses logout.
-- Routing URL mengarah ke `LogoutView` dan sesuaikan template html
-
-```python
-from django.contrib.auth.views import LogoutView
-urlpatterns = [
-    ...
-    path('logout/', LogoutView.as_view(), name='logout'),
-]
-```
-
-Pada html, tambahkan
-
+### Contoh:
 ```html
-<a href="{% url 'logout' %}">Logout</a>
+<div id="header" class="menu">Title</div>
 ```
 
-### 2. Membuat dua akun pengguna, masing-masing tiga dummy data
-
-Masuk ke Django Shell, lalu jalankan code berikut
-```python
-from django.contrib.auth.models import User
-from main.models import Product  
-import uuid
-
-# Buat dua akun dummy
-user1 = User.objects.create_user(username='dummy1', password='password123')
-user2 = User.objects.create_user(username='dummy2', password='password123')
-
-# Simpan kedua user
-user1.save()
-user2.save()
-
+Jika ada CSS seperti berikut:
+```css
+#header { color: black; }
+.menu { color: yellow; }
+div { color: red; }
 ```
-Selanjutnya, untuk menambahkan 3 dummy data untuk tiap akun, jalankan code berikut
-```python
-# Tambahkan 3 produk untuk user1
-Product.objects.create(user=user1, name='Product 1A', price=10000, description='Deskripsi produk 1A', quantity=5)
-Product.objects.create(user=user1, name='Product 1B', price=20000, description='Deskripsi produk 1B', quantity=3)
-Product.objects.create(user=user1, name='Product 1C', price=15000, description='Deskripsi produk 1C', quantity=10)
+Maka elemen tersebut akan berwarna **hitam** karena **ID selector** memiliki prioritas tertinggi.
 
-# Tambahkan 3 produk untuk user2
-Product.objects.create(user=user2, name='Product 2A', price=5000, description='Deskripsi produk 2A', quantity=8)
-Product.objects.create(user=user2, name='Product 2B', price=25000, description='Deskripsi produk 2B', quantity=4)
-Product.objects.create(user=user2, name='Product 2C', price=30000, description='Deskripsi produk 2C', quantity=2)
-```
-Dengan demikian, dummy account dan dummy data berhasil dibuat pada local project dan bisa digunakan dengan semestinya.
 
-### 3. Menghubungkan model `Product` dengan `User`
+## 2. Mengapa Responsive Design Penting?
+**Responsive design** adalah pendekatan dalam desain web di mana tampilan halaman web dapat menyesuaikan dengan berbagai ukuran dan orientasi layar perangkat pengguna. Konsep ini sangat penting karena pengguna mengakses web melalui berbagai perangkat seperti komputer desktop, tablet, dan smartphone.
 
-Pada `models.py`, import
-```python
-from django.contrib.auth.models import User
+### Keuntungan Responsive Design:
+- Pengalaman pengguna yang lebih baik di berbagai perangkat.
+- Aksesibilitas yang lebih luas.
+- SEO yang lebih baik karena search machine memberi index lebih kepada situs web yang accessible di berbagai perangkat.
+
+### Contoh Aplikasi yang Sudah Menerapkan Responsive Design:
+- **ChatGPT**: Antarmuka pengguna yang responsif di berbagai perangkat.
+  
+### Contoh Aplikasi yang Belum Menerapkan Responsive Design:
+- **SIAK NG**: Hanya menyediakan tampilan yang baik untuk mode desktop.
+    <div>
+      <img  alt="SIAK-NG page" width="400"/>
+    </div>
+
+## Perbedaan antara Margin, Border, dan Padding
+### - **Margin**: Ruang kosong di luar elemen, yang memisahkan elemen tersebut dari elemen lainnya.
+### - **Border**: Garis yang mengelilingi elemen, terletak di antara margin dan padding.
+### - **Padding**: Ruang di dalam elemen, yang memisahkan konten dari border.
+
+### Contoh Implementasi:
+```css
+article {
+    margin: 15px;     /* Ruang kosong di luar elemen */
+    border: 1px dashed blue;  /* Garis di sekeliling elemen */
+    padding: 5px;     /* Ruang di dalam elemen */
+}
 ```
-Lalu, pada class `Product`, tambahkan atribut
-```python
-user = models.ForeignKey(User, on_delete=models.CASCADE)
+### Ilustrasi:
+<div>
+  <img src="" alt="css-box" width="400" />
+</div>
+
+## Pemahaman tentang Flexbox dan Grid Layout
+
+### **Flexbox**
+Flexbox (Flexible Box) adalah teknik layout yang dirancang untuk menyusun elemen dalam satu dimensi, baik itu secara horizontal maupun vertikal. Flexbox memudahkan penciptaan desain yang responsif dan dapat beradaptasi dengan baik.
+
+#### Manfaat Flexbox:
+- Mengatur elemen secara dinamis dalam satu baris atau satu kolom.
+- Memungkinkan elemen untuk memperluas atau menyusut sesuai dengan ruang yang tersedia.
+
+#### Contoh Penggunaan Flexbox:
+```css
+.box-container {
+    display: flex;
+    align-items: flex-start; /* Menyelaraskan child element di bagian atas secara vertikal */
+    gap: 15px; /* Jarak antara elemen */
+}
 ```
-Selanjutnya, ubah `create_product` menjadi seperti berikut
-```python
-def create_product(request):
-    
-    form = ProductForm(request.POST or None)
+
+### **Grid Layout**
+Grid Layout adalah sistem layout dua dimensi yang memungkinkan pengembang untuk mendesain halaman yang lebih kompleks dengan baris dan kolom. Grid Layout sangat ideal untuk mengatur elemen dalam bentuk grid yang rapi dengan lebar kolom yang konsisten.
+
+#### Manfaat Grid Layout:
+- Menciptakan layout dua dimensi (baris dan kolom).
+- Sangat cocok untuk desain yang terstruktur dan memerlukan fleksibilitas dalam mengatur ukuran kolom dan baris.
+
+#### Contoh Penggunaan Grid Layout:
+```css
+.grid-container {
+    display: grid;
+    grid-template-rows: 100px auto; /* Dua baris, baris pertama setinggi 100px dan baris kedua otomatis */
+    grid-template-columns: repeat(3, 1fr); /* Tiga kolom dengan lebar yang sama */
+    gap: 20px; /* Jarak antar elemen */
+}
+``` 
+
+Dengan pendekatan ini, Flexbox dan Grid Layout memberikan cara yang efektif untuk mengatur dan mendesain elemen di halaman web secara responsif dan terstruktur.
+
+
+---
+
+## Langkah-langkah Implementasi Checklist
+## Implementasi Fungsi Edit dan Hapus
+Tambahkan fungsi pada views.py untuk fitur  edit     dan    delete   product
+  ```python
+
+  # Edit product
+  def edit_product(request, id):
+    product = Product.objects.get(pk = id)
+    form = ProductEntryForm(request.POST or None, instance=product)
 
     if form.is_valid() and request.method == "POST":
-        product = form.save(commit=False)
-        product.user = request.user
-        product.save()
-        return redirect('main:show_main')
+        form.save()
+        return HttpResponseRedirect(reverse('main:show_main'))
 
-    context = {'form': form,
-               'name' : 'Daniel Ferdiansyah',
-               'class' : 'PBP F'}
-    return render(request, "create_product.html", context)
-```
+    context = {
+        'form': form, 
+        'last_login': request.COOKIES.get('last_login')
+    }
+    return render(request, "crud/edit_product.html", context)
 
-Dengan demikian, `Product` telah diintegrasi dengan `User`. Sehingga, tiap user punya alokasi object Product berbeda dengan user lainnya.
+  # Delete product
+  def delete_product(request, id):
+    product = Product.objects.get(pk = id)
 
-### 4. Menampilkan detail informasi pengguna yang sedang logged in seperti `username` dan menerapkan cookies seperti `last login` 
+    product.delete()
 
-- **Username**
-Untuk menampilkan username pada `main.html`, kita dapat menambahkan key baru pada `context` yang ada pada `show_main` di `views.py` seperti berikut
-```python
-context = {
-        ...
-        'login_user' : request.user.username,
-        ...
-}
-```
-serta memperbarui `main.html` dengan menambahkan block code berikut
+    return HttpResponseRedirect(reverse('main:show_main'))
+
+
+  ```
+## Kustomisasi desain pada template menggunakan CSS framework
+Sebelum kita mulai menggunakan Tailwind dalam proyek, langkah pertama yang perlu dilakukan adalah menginisialisasi pemanggilan Tailwind melalui CDN (Content Distribution Network). Dengan menggunakan CDN, kita bisa memanfaatkan fitur-fitur styling yang ditawarkan oleh Tailwind tanpa perlu mengunduh atau mengkonfigurasi Tailwind di dalam direktori proyek. Panggilan CDN biasanya ditempatkan dalam file `base.html`.
 ```html
-<p> Hi <b>{{ login_user }}</b>, welcome to</p>
+  .....
+        {% load static %}
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            {% block meta %} {% endblock meta %}
+            <script src="https://cdn.tailwindcss.com"></script>
+            <link rel="stylesheet" href="{% static 'css/global.css' %}"/>
+        </head>
+        <body>
+            {% block content %} {% endblock content %}
+        </body>
+        </html>
+    ....
 ```
 
-- **Login**
-Untuk menampilkan last login session user, pada `views.py`, import beberapa modul berikut
-```python
-import datetime
-from django.http import HttpResponseRedirect
-from django.urls import reverse
-```
-Lalu pada `login_user`, tambahkan cookie bernama `last_login` dengan mereplace code block `if form.is_valid()` menjadi
-```python
-...
-if form.is_valid():
-    user = form.get_user()
-    login(request, user)
-    response = HttpResponseRedirect(reverse("main:show_main"))
-    response.set_cookie('last_login', str(datetime.datetime.now()))
-    return response
-...
-```
-
-Lalu tambah `context` pada `show_main` seperti berikut
-```python
-context = {
-    ...
-    'last_login': request.COOKIES['last_login'],
-}
-```
-Selanjutnya, ubah `logout_user` menjadi seperti berikut
-```python
-def logout_user(request):
-    logout(request)
-    response = HttpResponseRedirect(reverse('main:login'))
-    response.delete_cookie('last_login')
-    return response
-```
-Dan finally, pada `main.html`, tambahkan code block
-```html
-<h5>Sesi terakhir login: {{ last_login }}</h5>
-```
+Setelah inisiasi, kita dapat melakukan kustomisasi di berbagai page yang kita inginkan seperti pada **Login, Register, Add Product, Edit Product, hingga Card Product**. 

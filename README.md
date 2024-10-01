@@ -49,9 +49,9 @@ Maka elemen tersebut akan berwarna **hitam** karena **ID selector** memiliki pri
 - **SIAK NG**: Hanya nyaman dilihat jika di desktop.
 
 ## Perbedaan antara Margin, Border, dan Padding
-### - **Margin**: Ruang kosong di luar elemen, yang memisahkan elemen tersebut dari elemen lainnya.
-### - **Border**: Garis yang mengelilingi elemen, terletak di antara margin dan padding.
-### - **Padding**: Ruang di dalam elemen, yang memisahkan konten dari border.
+- **Margin**: Ruang kosong di luar elemen, yang memisahkan elemen tersebut dari elemen lainnya.
+- **Border**: Garis yang mengelilingi elemen, terletak di antara margin dan padding.
+- **Padding**: Ruang di dalam elemen, yang memisahkan konten dari border.
 
 ### Contoh Implementasi:
 ```css

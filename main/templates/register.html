@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block meta %}
 <title>Register</title>
 {% endblock meta %}
@@ -10,8 +10,11 @@
     <div>
       <!-- Updated text styling -->
       <h2 class="mt-6 text-center text-white text-3xl font-poppins">
-        <span class="font-normal">create your</span> <span class="font-bold">Grime</span> account.
+        <span class="font-normal">create your</span>
+        <img src="{% static '../media/logo.png' %}" alt="Logo" class="inline-block h-10" /> <!-- Adjust h-10 to change logo size -->
+        <span class="font-bold">account.</span>
       </h2>
+    
     </div>
     <form class="mt-8 space-y-6" method="POST">
       {% csrf_token %}
@@ -43,7 +46,7 @@
     <div class="text-center mt-4">
       <p class="text-sm text-white">
         Already have an account?
-        <a href="{% url 'main:login' %}" class="font-medium text-indigo-200 hover:text-indigo-300">
+        <a href="{% url 'main:login' %}" class="font-medium text-[#05c000] hover:text-[#06ff00]">
           Login here
         </a>
       </p>

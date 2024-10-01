@@ -15,7 +15,7 @@ from django.core import serializers
 def show_main(request):
     products = Product.objects.filter(user=request.user)
     context = {
-        'tagline': 'Anytime, anywhere.',
+        'tagline': 'anytime. anywhere.',
         'name' : 'Daniel Ferdiansyah',
         'class' : 'PBP F',
         'npm' : '2306275052',
@@ -97,13 +97,13 @@ def logout_user(request):
     return response
 
 def edit_product(request, id):
-    product = Product.objects.get(pk=id)
+    product = Product.objects.get(pk=id, user=request.user)
     
     if request.method == 'POST':
         form = ProductForm(request.POST, request.FILES, instance=product)  # Add request.FILES to handle image
         if form.is_valid():
             form.save()
-            return redirect('main:product_detail', pk=product.pk)  # Redirect to the product detail page or wherever necessary
+            return redirect('main:show_main')  # Redirect to the product detail page or wherever necessary
     else:
         form = ProductForm(instance=product)
     

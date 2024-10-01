@@ -1,13 +1,14 @@
+{% load static %}
 <nav class="bg-[#0c0c0c] shadow-lg fixed top-0 left-0 z-40 w-screen">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-16">
       <div class="flex items-center">
-        <h1 class="text-2xl font-bold text-center text-white">Grime</h1>
+        <img src="{% static '../media/logo.png' %}" alt="Logo" class="h-8" />
       </div>
       <div class="hidden md:flex items-center">
         {% if user.is_authenticated %}
           <span class="text-white mr-4">Welcome, <span class="font-bold">{{ user.username }}</span></span>
-          <a href="{% url 'main:logout' %}" class="text-center bg-red-500 hover:bg-red-600 text-white font-bold py-1.5 px-4 rounded-[15px] transition duration-300">
+          <a href="{% url 'main:logout' %}" class="text-center bg-[#05e500] hover:bg-[#04b600] text-black hover:text-white font-bold py-1.5 px-4 rounded-[15px] transition duration-300">
             Logout
           </a>
         {% else %}
@@ -27,9 +28,6 @@
         </button>
       </div>
     </div>
-  </div>
-  <div class="relative mx-auto w-[80%] h-[2px] bg-white overflow-hidden">
-    <div class="animated-line"></div>
   </div>
   <!-- Mobile menu -->
   <div class="mobile-menu hidden md:hidden  px-4 w-full md:max-w-full">

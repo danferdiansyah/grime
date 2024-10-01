@@ -10,7 +10,7 @@ View Grime's live website here: [Grime Deployment Page](http://daniel-ferdiansya
 
 ---
 
-## Tugas 5 - PBP 2024/2025
+## Tugas 5 - PBP 24/25
 ## Urutan Prioritas CSS Selector
 Jika beberapa CSS selector diterapkan pada elemen HTML yang sama, CSS menggunakan aturan spesifisitas (specificity) untuk menentukan selector mana yang akan diprioritaskan. Berikut urutan prioritasnya:
 

@@ -9,6 +9,7 @@ class Product(models.Model):
     price = models.IntegerField()
     description = models.TextField()
     quantity = models.IntegerField()
+    image = models.ImageField(upload_to='product_images/', null=True, blank=True) 
 
     @property
     def is_price_valid(self):

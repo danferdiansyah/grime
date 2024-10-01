@@ -12,7 +12,7 @@
     <h1 class="text-3xl font-bold text-center mb-8 text-white">Edit Product</h1>
   
     <div class="bg-[#0c0c0c] rounded-[25px] p-6 form-style outline outline-[2px] outline-white">
-      <form method="POST" class="space-y-6">
+      <form method="POST" enctype="multipart/form-data" class="space-y-6">
             {% csrf_token %}
             {% for field in form %}
                 <div class="flex flex-col">
@@ -30,6 +30,7 @@
                     {% endfor %}
                 </div>
             {% endfor %}
+
           <div class="flex justify-center mt-6">
               <button type="submit" class="w-auto flex justify-center py-2 px-4 text-sm font-medium rounded-[15px] text-black bg-white hover:bg-gray-200 focus:outline-none focus:ring-0 transition duration-200 ease-in-out
               hover:shadow-[0px_0px_15px_5px_rgba(255,255,255,0.4)] active:animate-button-press">
@@ -49,5 +50,5 @@
             input.classList.remove('text-opacity-100'); // Text opacity back to normal
         }
     }
-  </script>
+</script>
 {% endblock %}

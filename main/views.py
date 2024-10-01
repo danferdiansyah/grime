@@ -27,18 +27,20 @@ def show_main(request):
     return render(request, "main.html", context)
 
 def create_product(request):
-    
-    form = ProductForm(request.POST or None)
+    # Use request.FILES to handle uploaded files (like images)
+    form = ProductForm(request.POST or None, request.FILES or None)
 
-    if form.is_valid() and request.method == "POST":
-        product = form.save(commit=False)
-        product.user = request.user
-        product.save()
-        return redirect('main:show_main')
+    if request.method == "POST" and form.is_valid():
+        product = form.save(commit=False)  # Create the product instance but don't save yet
+        product.user = request.user  # Associate the product with the current user
+        product.save()  # Now save the product instance to the database
+        return redirect('main:show_main')  # Redirect to the main page after saving
 
-    context = {'form': form,
-               'name' : 'Daniel Ferdiansyah',
-               'class' : 'PBP F'}
+    context = {
+        'form': form,
+        'name': 'Daniel Ferdiansyah',
+        'class': 'PBP F'
+    }
     return render(request, "create_product.html", context)
     
 def show_xml(request):
@@ -95,15 +97,17 @@ def logout_user(request):
     return response
 
 def edit_product(request, id):
-    product = Product.objects.get(pk = id)
-    form = ProductForm(request.POST or None, instance=product)
-
-    if form.is_valid() and request.method == "POST":
-        form.save()
-        return HttpResponseRedirect(reverse('main:show_main'))
-
-    context = {'form': form}
-    return render(request, "edit_product.html", context)
+    product = Product.objects.get(pk=id)
+    
+    if request.method == 'POST':
+        form = ProductForm(request.POST, request.FILES, instance=product)  # Add request.FILES to handle image
+        if form.is_valid():
+            form.save()
+            return redirect('main:product_detail', pk=product.pk)  # Redirect to the product detail page or wherever necessary
+    else:
+        form = ProductForm(instance=product)
+    
+    return render(request, 'edit_product.html', {'form': form})
 
 def delete_product(request, id):
     product = Product.objects.get(pk = id)

@@ -10,7 +10,7 @@ View Grime's live website here: [Grime Deployment Page](http://daniel-ferdiansya
 
 ---
 
-## Tugas 5 - PBP 2024/2025
+## Tugas 5 - PBP 24/25
 ## Urutan Prioritas CSS Selector
 Jika beberapa CSS selector diterapkan pada elemen HTML yang sama, CSS menggunakan aturan spesifisitas (specificity) untuk menentukan selector mana yang akan diprioritaskan. Berikut urutan prioritasnya:
 
@@ -46,15 +46,12 @@ Maka elemen tersebut akan berwarna **hitam** karena **ID selector** memiliki pri
 - **ChatGPT**: Antarmuka pengguna yang responsif di berbagai perangkat.
   
 ### Contoh Aplikasi yang Belum Menerapkan Responsive Design:
-- **SIAK NG**: Hanya menyediakan tampilan yang baik untuk mode desktop.
-    <div>
-      <img  alt="SIAK-NG page" width="400"/>
-    </div>
+- **SIAK NG**: Hanya nyaman dilihat jika di desktop.
 
 ## Perbedaan antara Margin, Border, dan Padding
-### - **Margin**: Ruang kosong di luar elemen, yang memisahkan elemen tersebut dari elemen lainnya.
-### - **Border**: Garis yang mengelilingi elemen, terletak di antara margin dan padding.
-### - **Padding**: Ruang di dalam elemen, yang memisahkan konten dari border.
+- **Margin**: Ruang kosong di luar elemen, yang memisahkan elemen tersebut dari elemen lainnya.
+- **Border**: Garis yang mengelilingi elemen, terletak di antara margin dan padding.
+- **Padding**: Ruang di dalam elemen, yang memisahkan konten dari border.
 
 ### Contoh Implementasi:
 ```css
@@ -64,10 +61,6 @@ article {
     padding: 5px;     /* Ruang di dalam elemen */
 }
 ```
-### Ilustrasi:
-<div>
-  <img src="" alt="css-box" width="400" />
-</div>
 
 ## Pemahaman tentang Flexbox dan Grid Layout
 

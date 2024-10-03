@@ -145,5 +145,3 @@ View Grime's live website here: [Grime Deployment Page](http://daniel-ferdiansya
     </div>
   </div>
    ```
-
-   

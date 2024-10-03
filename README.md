@@ -269,7 +269,7 @@ View Grime's live website here: [Grime Deployment Page](http://daniel-ferdiansya
              const description = DOMPurify.sanitize(item.fields.description);
              const imageUrl = item.fields.image ? `/media/${item.fields.image}` : '/path/to/placeholder-image.png';
              htmlString += `
-                -- Diisi code html yang relevan
+                <!-- Diisi code html yang relevan -->
                `;
            });
        }

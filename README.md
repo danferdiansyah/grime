@@ -60,3 +60,21 @@ View Grime's live website here: [Grime Deployment Page](http://daniel-ferdiansya
      
    - **Standar**: Dalam pengembangan aplikasi yang baik, validasi seharusnya dilakukan di kedua sisi (frontend dan backend) untuk memberikan pengalaman pengguna yang baik (dengan validasi cepat di frontend) serta menjaga keamanan dan integritas data di backend.
 
+## **Step by Step Implementasi**
+
+## AJAX `GET`
+
+
+
+## AJAX `POST`
+
+1. Membuat button form untuk menambahkan product dapat diimplementasikan dengan menambahkan code berikut setelah button yang mengarah ke halaman `create-product`.
+
+   ```html
+      <button data-modal-target="crudModal" data-modal-toggle="crudModal" class="w-auto ml-4 flex justify-center py-2 px-4 text-sm font-medium rounded-[15px] text-black bg-white hover:bg-gray-200 focus:outline-none focus:ring-0 transition duration-200 ease-in-out
+      hover:shadow-[0px_0px_15px_5px_rgba(255,255,255,0.4)]" onclick="showModal();">
+        Add New Product by AJAX
+      </button>
+   ```
+
+   

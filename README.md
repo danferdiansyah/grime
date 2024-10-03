@@ -147,8 +147,38 @@ View Grime's live website here: [Grime Deployment Page](http://daniel-ferdiansya
    ```
 
    Agar modal dapat muncul ketika button ditekan, kita perlu menambahkan script berikut pada file html di antara `<script>...</script>`
+   ```javascript
+      const modal = document.getElementById('crudModal');
+      const modalContent = document.getElementById('crudModalContent');
+      
+      function showModal() {
+            const modal = document.getElementById('crudModal');
+            const modalContent = document.getElementById('crudModalContent');
+      
+            modal.classList.remove('hidden'); 
+            setTimeout(() => {
+              modalContent.classList.remove('opacity-0', 'scale-95');
+              modalContent.classList.add('opacity-100', 'scale-100');
+            }, 50); 
+      }
+      
+      function hideModal() {
+            const modal = document.getElementById('crudModal');
+            const modalContent = document.getElementById('crudModalContent');
+      
+            modalContent.classList.remove('opacity-100', 'scale-100');
+            modalContent.classList.add('opacity-0', 'scale-95');
+      
+            setTimeout(() => {
+              modal.classList.add('hidden');
+            }, 150); 
+      }
+      
+      document.getElementById("cancelButton").addEventListener("click", hideModal);
+      document.getElementById("closeModalBtn").addEventListener("click", hideModal);
+   ```
 
-2. Membuat fungsi `view` baru untuk menambahkan product ke database. Hal ini dapat dilakukan dengan menambah import berikut pada `views.py`
+3. Membuat fungsi `view` baru untuk menambahkan product ke database. Hal ini dapat dilakukan dengan menambah import berikut pada `views.py`
    ```python
    from django.views.decorators.csrf import csrf_exempt
    from django.views.decorators.http import require_POST
@@ -178,7 +208,7 @@ View Grime's live website here: [Grime Deployment Page](http://daniel-ferdiansya
        return HttpResponse(b"CREATED", status=201)
    ```
 
-3. Lalu, kita perlu menambahkan path di `urls.py` yang mengarah ke fungsi `add_product_ajax()` dengan cara mengimport fungsi yang telah dibuat serta menambahkan path pada `urlpatterns`
+4. Lalu, kita perlu menambahkan path di `urls.py` yang mengarah ke fungsi `add_product_ajax()` dengan cara mengimport fungsi yang telah dibuat serta menambahkan path pada `urlpatterns`
    ```python
    from main.views import
 
@@ -188,7 +218,7 @@ View Grime's live website here: [Grime Deployment Page](http://daniel-ferdiansya
    ]
    ```
 
-4. Menghubungkan form di dalam modal dengan path `add_product_ajax`, hal ini dapat dilakukan dengan menambahkan script berikut pada file html
+5. Menghubungkan form di dalam modal dengan path `add_product_ajax`, hal ini dapat dilakukan dengan menambahkan script berikut pada file html
    ```javascript
       function addProduct() {
        fetch("{% url 'main:add_product_ajax' %}", {

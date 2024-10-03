@@ -175,3 +175,13 @@ View Grime's live website here: [Grime Deployment Page](http://daniel-ferdiansya
    
        return HttpResponse(b"CREATED", status=201)
    ```
+
+3. Lalu, kita perlu menambahkan path di `urls.py` yang mengarah ke fungsi `add_product_ajax()` dengan cara mengimport fungsi yang telah dibuat beserta path pada `urlpatterns`
+   ```python
+   from main.views import
+
+   urlpatterns = [
+    ...
+    path('add-product-ajax', add_product_ajax, name='add_product_ajax'),
+   ]
+   ```

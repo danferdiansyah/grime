@@ -188,50 +188,50 @@ View Grime's live website here: [Grime Deployment Page](http://daniel-ferdiansya
 
 4. Menghubungkan form di dalam modal dengan path `add_product_ajax`, hal ini dapat dilakukan dengan menambahkan script berikut pada file html
    ```javascript
-   function addProduct() {
-    fetch("{% url 'main:add_product_ajax' %}", {
-         method: "POST",
-         body: new FormData(document.querySelector('#productForm')),
-       })
-       .then(response => refreshProducts())
-     
-       document.getElementById("productForm").reset(); 
-       document.querySelector("[data-modal-toggle='crudModal']").click();
-     
-       return false;
+      function addProduct() {
+       fetch("{% url 'main:add_product_ajax' %}", {
+            method: "POST",
+            body: new FormData(document.querySelector('#productForm')),
+          })
+          .then(response => refreshProducts())
+        
+          document.getElementById("productForm").reset(); 
+          document.querySelector("[data-modal-toggle='crudModal']").click();
+        
+          return false;
+        }
+      
+        document.getElementById("productForm").addEventListener("submit", (e) => {
+          e.preventDefault();
+          addProduct();
+        })
+   
+     const modal = document.getElementById('crudModal');
+     const modalContent = document.getElementById('crudModalContent');
+   
+     function showModal() {
+         const modal = document.getElementById('crudModal');
+         const modalContent = document.getElementById('crudModalContent');
+   
+         modal.classList.remove('hidden'); 
+         setTimeout(() => {
+           modalContent.classList.remove('opacity-0', 'scale-95');
+           modalContent.classList.add('opacity-100', 'scale-100');
+         }, 50); 
      }
    
-     document.getElementById("productForm").addEventListener("submit", (e) => {
-       e.preventDefault();
-       addProduct();
-     })
-
-  const modal = document.getElementById('crudModal');
-  const modalContent = document.getElementById('crudModalContent');
-
-  function showModal() {
-      const modal = document.getElementById('crudModal');
-      const modalContent = document.getElementById('crudModalContent');
-
-      modal.classList.remove('hidden'); 
-      setTimeout(() => {
-        modalContent.classList.remove('opacity-0', 'scale-95');
-        modalContent.classList.add('opacity-100', 'scale-100');
-      }, 50); 
-  }
-
-  function hideModal() {
-      const modal = document.getElementById('crudModal');
-      const modalContent = document.getElementById('crudModalContent');
-
-      modalContent.classList.remove('opacity-100', 'scale-100');
-      modalContent.classList.add('opacity-0', 'scale-95');
-
-      setTimeout(() => {
-        modal.classList.add('hidden');
-      }, 150); 
-  }
-
-  document.getElementById("cancelButton").addEventListener("click", hideModal);
-  document.getElementById("closeModalBtn").addEventListener("click", hideModal);
+     function hideModal() {
+         const modal = document.getElementById('crudModal');
+         const modalContent = document.getElementById('crudModalContent');
+   
+         modalContent.classList.remove('opacity-100', 'scale-100');
+         modalContent.classList.add('opacity-0', 'scale-95');
+   
+         setTimeout(() => {
+           modal.classList.add('hidden');
+         }, 150); 
+     }
+   
+     document.getElementById("cancelButton").addEventListener("click", hideModal);
+     document.getElementById("closeModalBtn").addEventListener("click", hideModal);
    ```

@@ -11,9 +11,8 @@ View Grime's live website here: [Grime Deployment Page](http://daniel-ferdiansya
 ---
 
 ## Tugas 6 - PBP 24/25
-Berikut jawaban dari pertanyaan-pertanyaan tersebut:
 
-### 1. **Manfaat Penggunaan JavaScript dalam Pengembangan Aplikasi Web**
+## **Manfaat Penggunaan JavaScript dalam Pengembangan Aplikasi Web**
    JavaScript memiliki banyak manfaat dalam pengembangan aplikasi web, antara lain:
    - **Interaktif**: JavaScript memungkinkan pembuatan elemen interaktif di halaman web, seperti dropdown, sliders, form validation, dan modal windows, yang meningkatkan pengalaman pengguna.
    - **Manipulasi DOM**: JavaScript dapat memanipulasi elemen-elemen di halaman web (DOM) secara dinamis, seperti menambah, menghapus, atau mengubah konten tanpa perlu memuat ulang halaman.
@@ -21,7 +20,7 @@ Berikut jawaban dari pertanyaan-pertanyaan tersebut:
    - **Cross-platform**: JavaScript berjalan di hampir semua browser modern, sehingga kode yang ditulis dapat dijalankan di berbagai perangkat dan platform.
    - **Mendukung Pengembangan SPA (Single Page Application)**: JavaScript framework/library seperti React, Angular, dan Vue memungkinkan pengembangan aplikasi web yang cepat dan efisien dengan konsep SPA, di mana aplikasi berjalan lebih cepat karena hanya sebagian halaman yang di-refresh.
 
-### 2. **Fungsi dari Penggunaan `await` dengan `fetch()`**
+## **Fungsi dari Penggunaan `await` dengan `fetch()`**
    `await` digunakan untuk menunggu hasil dari fungsi asynchronous seperti `fetch()`. Fungsi ini memblokir eksekusi baris kode berikutnya sampai permintaan `fetch()` selesai dan respons diterima.
    
    - **Fungsi utama `await`**: Mengubah perilaku asynchronous menjadi seperti synchronous. Dengan `await`, kode setelahnya tidak akan dieksekusi sampai proses `fetch()` selesai. Ini membuat kode lebih mudah dipahami karena tidak perlu menggunakan callback atau `.then()` chaining.
@@ -40,14 +39,14 @@ Berikut jawaban dari pertanyaan-pertanyaan tersebut:
    const data = await response.json(); // Menunggu response selesai
    ```
 
-### 3. **Penggunaan Decorator `csrf_exempt` pada View untuk AJAX POST**
+## **Penggunaan Decorator `csrf_exempt` pada View untuk AJAX POST**
    Decorator `@csrf_exempt` digunakan untuk mengecualikan view dari mekanisme perlindungan **Cross-Site Request Forgery (CSRF)**. Dalam Django, mekanisme CSRF digunakan untuk mencegah serangan di mana pengguna secara tidak sengaja mengirimkan permintaan yang tidak valid (malicious request).
 
    Namun, dalam beberapa kasus seperti ketika menggunakan AJAX untuk POST request, token CSRF tidak selalu dikirim secara otomatis, sehingga kita mungkin mengalami kesalahan (error) saat melakukan POST tanpa token CSRF yang valid. Dengan menambahkan `@csrf_exempt` pada view tersebut, kita memberi tahu Django untuk tidak memeriksa token CSRF pada request tersebut.
 
    **Perlu dicatat**, menonaktifkan CSRF harus dilakukan dengan hati-hati dan hanya jika benar-benar diperlukan, karena dapat membuka celah keamanan. Alternatif yang lebih aman adalah menyertakan token CSRF dalam header AJAX request.
 
-### 4. **Mengapa Pembersihan Data Input Pengguna Dilakukan di Backend**
+## **Mengapa Pembersihan Data Input Pengguna Dilakukan di Backend**
    Pembersihan data input pengguna sebaiknya tetap dilakukan di backend untuk alasan keamanan dan keandalan. Alasan utama adalah:
    
    - **Keamanan**: Validasi di frontend dapat dimanipulasi oleh pengguna dengan mematikan JavaScript atau mengubah kode halaman, sehingga hanya mengandalkan validasi di frontend bisa berisiko tinggi terhadap serangan seperti injeksi kode atau pengiriman data yang tidak valid. Validasi di backend memastikan bahwa setiap data yang diterima dari pengguna sudah bersih dan aman.

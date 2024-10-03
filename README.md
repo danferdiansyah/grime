@@ -53,4 +53,3 @@ View Grime's live website here: [Grime Deployment Page](http://daniel-ferdiansya
    - **Reliabilitas**: Frontend adalah lapisan yang lebih mudah diubah oleh pengguna, sehingga backend perlu memiliki lapisan validasi tersendiri agar aplikasi tetap bekerja dengan benar meskipun ada modifikasi di sisi frontend.
    - **Standar**: Dalam pengembangan aplikasi yang baik, validasi seharusnya dilakukan di kedua sisi (frontend dan backend) untuk memberikan pengalaman pengguna yang baik (dengan validasi cepat di frontend) serta menjaga keamanan dan integritas data di backend.
 
-Let me know if you need further explanation!

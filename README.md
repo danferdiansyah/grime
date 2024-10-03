@@ -199,12 +199,12 @@ View Grime's live website here: [Grime Deployment Page](http://daniel-ferdiansya
           document.querySelector("[data-modal-toggle='crudModal']").click();
         
           return false;
-        }
+      }
       
-        document.getElementById("productForm").addEventListener("submit", (e) => {
+      document.getElementById("productForm").addEventListener("submit", (e) => {
           e.preventDefault();
           addProduct();
-        })
+      })
    
      const modal = document.getElementById('crudModal');
      const modalContent = document.getElementById('crudModalContent');

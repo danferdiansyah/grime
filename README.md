@@ -145,3 +145,33 @@ View Grime's live website here: [Grime Deployment Page](http://daniel-ferdiansya
           </div>
         </div>
    ```
+
+2. Membuat fungsi `view` baru untuk menambahkan product ke database. Hal ini dapat dilakukan dengan menambah import berikut pada `views.py`
+   ```python
+   from django.views.decorators.csrf import csrf_exempt
+   from django.views.decorators.http import require_POST
+   ```
+   Lalu, kita buat sebuah fungsi untuk menerima data produk baru dari sebuah permintaan AJAX menggunakan metode `POST` seperti berikut
+   ```python
+   @csrf_exempt
+   @require_POST
+   def add_product_ajax(request):
+       name = strip_tags(request.POST.get("name"))
+       price = request.POST.get("price")
+       description = strip_tags(request.POST.get("description"))
+       quantity = request.POST.get("quantity")
+       image = request.FILES.get("image")
+       user = request.user
+       
+       new_product = Product(
+           name=name, 
+           price=price,
+           description=description,
+           quantity=quantity,
+           image=image,
+           user=user
+       )
+       new_product.save()
+   
+       return HttpResponse(b"CREATED", status=201)
+   ```

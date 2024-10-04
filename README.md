@@ -146,7 +146,7 @@ View Grime's live website here: [Grime Deployment Page](http://daniel-ferdiansya
         </div>
    ```
 
-   Agar modal dapat muncul ketika button ditekan, kita perlu menambahkan script berikut pada file html di antara `<script>...</script>`
+   Agar modal dapat muncul ketika mengklik button serta modal dapat dihide kembali, kita perlu menambahkan fungsi `showModal()`, `hideModal()`, beserta event listenernya pada bagian `script` di html. 
    ```javascript
       const modal = document.getElementById('crudModal');
       const modalContent = document.getElementById('crudModalContent');
@@ -178,12 +178,12 @@ View Grime's live website here: [Grime Deployment Page](http://daniel-ferdiansya
       document.getElementById("closeModalBtn").addEventListener("click", hideModal);
    ```
 
-3. Membuat fungsi `view` baru untuk menambahkan product ke database. Hal ini dapat dilakukan dengan menambah import berikut pada `views.py`
+3. Membuat fungsi `view` baru untuk menambahkan product ke database. Hal ini dapat dilakukan dengan mengimport `csrf_exempt` dan `require_POST` pada `views.py`
    ```python
    from django.views.decorators.csrf import csrf_exempt
    from django.views.decorators.http import require_POST
    ```
-   Lalu, kita buat sebuah fungsi untuk menerima data produk baru dari sebuah permintaan AJAX menggunakan metode `POST` seperti berikut
+   Lalu, kita buat sebuah fungsi untuk menerima data produk baru dari sebuah request AJAX menggunakan metode `POST`.
    ```python
    @csrf_exempt
    @require_POST

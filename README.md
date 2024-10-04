@@ -218,7 +218,7 @@ View Grime's live website here: [Grime Deployment Page](http://daniel-ferdiansya
    ]
    ```
 
-5. Menghubungkan form di dalam modal dengan path `add_product_ajax`, hal ini dapat dilakukan dengan menambahkan script berikut pada file `main.html`
+5. Menghubungkan form di dalam modal dengan path `add_product_ajax`, hal ini dapat dilakukan dengan menambahkan fungsi `addProduct()` serta menambahkan event listener di bagian `script` pada `main.html`
    ```javascript
       function addProduct() {
        fetch("{% url 'main:add_product_ajax' %}", {
@@ -239,7 +239,7 @@ View Grime's live website here: [Grime Deployment Page](http://daniel-ferdiansya
       })
    ```
 
-6. Membuat function untuk merefresh halaman secara asinkronus untuk menampilkan data product tanpa reload dengan cara menambahkan script berikut pada file `main.html`
+6. Lalu, untuk dapat melakukan refresh serta menampilkan data product tanpa reload dengan cara menambahkan fungsi asinkronus `async funtion getProducts()` serta `async function refreshProducts()` pada bagian `script` di `main.html`
    ```javascript
    async function getProducts(){
        return fetch("{% url 'main:show_json' %}").then((res) => res.json())

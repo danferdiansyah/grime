@@ -64,6 +64,46 @@ View Grime's live website here: [Grime Deployment Page](http://daniel-ferdiansya
 
 ## AJAX `GET`
 
+1. Supaya product card dapat mendukung AJAX `GET`, kita perlu menambahkan block code product card pada `main.html` di dalam fungsi asinkronus `refreshProducts()` seperti berikut
+```javascript
+async function refreshProducts() {
+       document.getElementById("product_cards").innerHTML = "";
+       document.getElementById("product_cards").className = "";
+       const Products = await getProducts();
+       let htmlString = "";
+       let classNameString = "";
+   
+       if (Products.length === 0) {
+           classNameString = "flex flex-col items-center justify-center min-h-[24rem] p-6";
+           htmlString = `
+               <div class="flex flex-col items-center justify-center min-h-[24rem] p-6">
+                   <p class="text-center text-gray-600 mt-4">No product yet.</p>
+               </div>
+           `;
+       }
+       else {
+         classNameString = "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 w-full max-w-7xl mx-auto"
+         Products.forEach((item) => {
+             const name = DOMPurify.sanitize(item.fields.name);
+             const description = DOMPurify.sanitize(item.fields.description);
+             const imageUrl = item.fields.image ? `/media/${item.fields.image}` : '/path/to/placeholder-image.png';
+             htmlString += `
+               <!-- Diisi code html yang relevan -->
+               `;
+           });
+       }
+       document.getElementById("product_cards").className = classNameString;
+       document.getElementById("product_cards").innerHTML = htmlString;
+     }
+     refreshProducts();
+```
+   2. Dalam fungsi `refreshProduct()` juga dipanggil fungsi asinkronus lain yaitu `getProduct()` seperti berikut
+```javascript
+async function getProducts(){
+    return fetch("{% url 'main:show_json' %}").then((res) => res.json())
+  }
+```
+Yang mana fungsi tersebut melakukan AJAX menggunakan fetch API yang meminta data product user yang sedang login secara asinkronus. Data yang telah direquest tadi akhirnya akan dicompile oleh fungsi `refreshProuct()` untuk ditampilkan pada halaman utama (`main.html`).
 
 
 ## AJAX `POST`

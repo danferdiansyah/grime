@@ -12,6 +12,8 @@ from django.http import HttpResponse
 from django.core import serializers
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
+import json
+from django.http import JsonResponse
 from django.utils.html import strip_tags
 
 @login_required(login_url='/login')
@@ -139,3 +141,47 @@ def add_product_ajax(request):
     new_product.save()
 
     return HttpResponse(b"CREATED", status=201)
+
+@csrf_exempt
+def create_product_flutter(request):
+    if request.method == 'POST':
+
+        data = json.loads(request.body)
+        new_mood = Product.objects.create(
+            user=request.user,
+            mood=data["mood"],
+            mood_intensity=int(data["mood_intensity"]),
+            feelings=data["feelings"]
+        )
+
+        new_mood.save()
+
+        return JsonResponse({"status": "success"}, status=200)
+    else:
+        return JsonResponse({"status": "error"}, status=401)
+    
+@csrf_exempt
+def create_product_flutter(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+      
+            new_product = Product.objects.create(
+                user=request.user,  
+                name=data["name"],
+                price=int(data["price"]),
+                description=data["description"],
+                quantity=int(data["quantity"]),
+                image=data["image"]
+            )
+
+            new_product.save()
+
+            return JsonResponse({"status": "success"}, status=200)
+        except KeyError as e:
+            return JsonResponse({"status": "error", "message": f"Missing field: {e}"}, status=400)
+        except Exception as e:
+            # Error Handling
+            return JsonResponse({"status": "error", "message": str(e)}, status=500)
+    else:
+        return JsonResponse({"status": "error", "message": "Invalid method"}, status=405)

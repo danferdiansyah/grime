@@ -15,6 +15,14 @@ from django.views.decorators.http import require_POST
 import json
 from django.http import JsonResponse
 from django.utils.html import strip_tags
+from django.db.models import Q
+from django.http import JsonResponse
+from django.core.serializers import serialize
+from .models import Product
+from django.views.decorators.csrf import csrf_exempt
+import json
+from django.http import JsonResponse
+from django.core.files.base import ContentFile
 
 @login_required(login_url='/login')
 def show_main(request):
@@ -142,46 +150,71 @@ def add_product_ajax(request):
 
     return HttpResponse(b"CREATED", status=201)
 
-@csrf_exempt
-def create_product_flutter(request):
-    if request.method == 'POST':
+def product_list(request):
+    products = Product.objects.all()
+    data = serialize('json', products)
+    return JsonResponse(data, safe=False)
 
-        data = json.loads(request.body)
-        new_mood = Product.objects.create(
-            user=request.user,
-            mood=data["mood"],
-            mood_intensity=int(data["mood_intensity"]),
-            feelings=data["feelings"]
-        )
-
-        new_mood.save()
-
-        return JsonResponse({"status": "success"}, status=200)
-    else:
-        return JsonResponse({"status": "error"}, status=401)
-    
 @csrf_exempt
 def create_product_flutter(request):
     if request.method == 'POST':
         try:
-            data = json.loads(request.body)
-      
+            # Handle JSON and form data appropriately
+            if request.content_type == 'application/json':
+                data = json.loads(request.body)
+                image_file = None
+            else:
+                data = request.POST
+                image_file = request.FILES.get('image')
+
+            # Fetch the user (adjust as needed if you have specific auth logic)
+            user_id = data.get("user_id")
+            user = User.objects.get(id=user_id) if user_id else None
+            if not user:
+                return JsonResponse({
+                    "status": "error",
+                    "message": "Invalid or missing user ID"
+                }, status=400)
+
+            # Create the Product instance
             new_product = Product.objects.create(
-                user=request.user,  
-                name=data["name"],
-                price=int(data["price"]),
-                description=data["description"],
-                quantity=int(data["quantity"]),
-                image=data["image"]
+                user=user,
+                name=data.get("name"),
+                price=int(data.get("price")),
+                description=data.get("description", ""),
+                quantity=int(data.get("quantity", 0)),
+                image=image_file,
             )
+
+            # Check if the price is valid
+            if not new_product.is_price_valid:
+                return JsonResponse({
+                    "status": "error",
+                    "message": "Price must be greater than 0"
+                }, status=400)
 
             new_product.save()
 
             return JsonResponse({"status": "success"}, status=200)
+        except User.DoesNotExist:
+            return JsonResponse({
+                "status": "error",
+                "message": "User not found"
+            }, status=404)
         except KeyError as e:
-            return JsonResponse({"status": "error", "message": f"Missing field: {e}"}, status=400)
+            return JsonResponse({
+                "status": "error",
+                "message": f"Missing field: {str(e)}"
+            }, status=400)
+        except ValueError as e:
+            return JsonResponse({
+                "status": "error",
+                "message": f"Invalid value: {str(e)}"
+            }, status=400)
         except Exception as e:
-            # Error Handling
-            return JsonResponse({"status": "error", "message": str(e)}, status=500)
+            return JsonResponse({
+                "status": "error",
+                "message": f"An error occurred: {str(e)}"
+            }, status=500)
     else:
-        return JsonResponse({"status": "error", "message": "Invalid method"}, status=405)
+        return JsonResponse({"status": "error", "message": "Invalid request method"}, status=405)

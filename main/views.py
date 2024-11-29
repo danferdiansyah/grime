@@ -23,6 +23,8 @@ from django.views.decorators.csrf import csrf_exempt
 import json
 from django.http import JsonResponse
 from django.core.files.base import ContentFile
+from django.contrib.auth.models import User
+import uuid
 
 @login_required(login_url='/login')
 def show_main(request):
@@ -159,62 +161,27 @@ def product_list(request):
 def create_product_flutter(request):
     if request.method == 'POST':
         try:
-            # Handle JSON and form data appropriately
-            if request.content_type == 'application/json':
-                data = json.loads(request.body)
-                image_file = None
-            else:
-                data = request.POST
-                image_file = request.FILES.get('image')
-
-            # Fetch the user (adjust as needed if you have specific auth logic)
-            user_id = data.get("user_id")
-            user = User.objects.get(id=user_id) if user_id else None
-            if not user:
-                return JsonResponse({
-                    "status": "error",
-                    "message": "Invalid or missing user ID"
-                }, status=400)
-
-            # Create the Product instance
+            data = json.loads(request.body)
+            
+            # Assuming you use `request.user` for the authenticated user
+            user = request.user
+            
+            # Create a new Product instance
             new_product = Product.objects.create(
                 user=user,
-                name=data.get("name"),
-                price=int(data.get("price")),
-                description=data.get("description", ""),
-                quantity=int(data.get("quantity", 0)),
-                image=image_file,
+                id=uuid.uuid4(),  # Ensure ID is unique
+                name=data["name"],
+                price=int(data["price"]),
+                description=data.get("description", ""),  # Default to empty string if missing
+                quantity=int(data["quantity"]),
+                image=data.get("image", None),  # Handle image field
             )
-
-            # Check if the price is valid
-            if not new_product.is_price_valid:
-                return JsonResponse({
-                    "status": "error",
-                    "message": "Price must be greater than 0"
-                }, status=400)
-
             new_product.save()
 
-            return JsonResponse({"status": "success"}, status=200)
-        except User.DoesNotExist:
-            return JsonResponse({
-                "status": "error",
-                "message": "User not found"
-            }, status=404)
+            return JsonResponse({"status": "success", "product_id": str(new_product.id)}, status=200)
         except KeyError as e:
-            return JsonResponse({
-                "status": "error",
-                "message": f"Missing field: {str(e)}"
-            }, status=400)
-        except ValueError as e:
-            return JsonResponse({
-                "status": "error",
-                "message": f"Invalid value: {str(e)}"
-            }, status=400)
+            return JsonResponse({"status": "error", "message": f"Missing key: {e}"}, status=400)
         except Exception as e:
-            return JsonResponse({
-                "status": "error",
-                "message": f"An error occurred: {str(e)}"
-            }, status=500)
+            return JsonResponse({"status": "error", "message": str(e)}, status=500)
     else:
         return JsonResponse({"status": "error", "message": "Invalid request method"}, status=405)
